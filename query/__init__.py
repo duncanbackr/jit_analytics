@@ -1,1 +1,1 @@
-from Query.query_sql import query_data
+from Query.query_sql import query_db

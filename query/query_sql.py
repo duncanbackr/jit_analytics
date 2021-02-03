@@ -1,7 +1,7 @@
 import psycopg2
 import os
 from dotenv import load_dotenv, find_dotenv
-from sql import full_query
+from Query.sql import full_query
 
 load_dotenv(find_dotenv())
 

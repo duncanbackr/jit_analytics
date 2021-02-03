@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
-from Query
+import Query
 import Analytics
 
-all_rows_unclean = Query.query_db()
+all_rows = Query.query_db()
 
 #today = datetime.now()
 

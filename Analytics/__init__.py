@@ -5,7 +5,6 @@ from Analytics.growthscore import add_growth_score
 from Analytics.preparedict import unpack
 from Analytics.retainscore import add_retain_score
 from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
-from Analytics.preparerows import prepare
 
 def add_score(all_rows, top_fan_cutoff): 
     replies = {}
