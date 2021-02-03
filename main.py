@@ -1,9 +1,9 @@
 from datetime import datetime, timezone
-from Query.query_sql import query_data
+from Query
 import Analytics
 
-all_rows_unclean = query_data()
-all_rows = prepare(all_rows_unclean)
+all_rows_unclean = Query.query_db()
+
 #today = datetime.now()
 
 ##(mean, sd)##
