@@ -8,6 +8,8 @@ def unpack(row):
         'total_replies', 'responses', 'sec_comment', 'account_title',
         'thumbnail_url', 'max']
 
+    ####validate values for each key####
+
     comment = {keys[i]:row[i] for i in range(len(keys))} 
 
     return comment

@@ -22,4 +22,4 @@ def query_db():
 if __name__ == '__main__':
     x = query_db()
     #x= os.environ
-    print(x)
+    print(x[0:3])
