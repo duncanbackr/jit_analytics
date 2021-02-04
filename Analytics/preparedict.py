@@ -1,11 +1,20 @@
-import math
 from Analytics.constants import sql_columns
 
 def unpack(row):
     '''converts row to dictionary'''
 
-    comment = {sql_columns[i]['name']: row[i] 
-              for i in range(len(sql_columns))
-              if type(row[i]) is sql_columns[i]['type']}
+    comment = {}
+    for i in range(len(row)):
+        key = sql_columns[i]
+        value = row[i]
+
+        if type(value) is key['type']:
+            comment[key['name']] = value
+        
+        elif key['required']:
+            return None
+
+        else:
+            comment[key['name']] = None
 
     return comment
