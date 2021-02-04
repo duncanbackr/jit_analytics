@@ -1,24 +1,25 @@
-from Tests.fixtures import unpack_row, raw_rows, unpacked_rows
+from Tests.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
+    top_fan, trend_fan, re_engaged_fan, other_fan
 import datetime
 from Analytics.preparedict import unpack
 from math import nan
 
 # ####badge tests####
 
-# def test_badge_New(new_fan):
-#     assert 'new_fan' ==  new_fan
+def test_badge_New(new_fan):
+    assert 'new_fan' ==  new_fan
 
-# def test_badge_Top(top_fan):
-#     assert 'top_fan' ==  top_fan
+def test_badge_Top(top_fan):
+    assert 'top_fan' ==  top_fan
 
-# def test_badge_Trend(trend_fan):
-#     assert 'trending_fan' ==  trend_fan
+def test_badge_Trend(trend_fan):
+    assert 'trending_fan' ==  trend_fan
 
-# def test_badge_Other(other_fan):
-#     assert 'None' ==  other_fan
+def test_badge_Other(other_fan):
+    assert 'None' ==  other_fan
 
-# def test_badge_re_engaged(re_engaged_fan):
-#     assert 're-engaged Fan' ==  re_engaged_fan
+def test_badge_re_engaged(re_engaged_fan):
+    assert 're-engaged Fan' ==  re_engaged_fan
 
 # ####score tests ####
 
