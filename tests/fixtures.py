@@ -32,16 +32,16 @@ def other_fan():
 
 # ############score fixtures###################
 
-# @pytest.fixture(scope='function')
-# def growth():
-#     badge = add_badge(2, 2, 1592239439000,nan)
-#     return add_growth_score(2, 2, 0,1592239439000,nan, badge )
+@pytest.fixture(scope='function')
+def growth():
+    badge = add_badge(2, 2, datetime.datetime(2020, 9, 12, 18, 32, 34),None)
+    return add_growth_score(2, 2, 0, datetime.datetime(2020, 9, 12, 18, 32, 34),None, badge )
 
 
-# @pytest.fixture(scope='function')
-# def retain():
-#     badge = add_badge(3, 2,1592498639000, 1586537039000)
-#     return add_retain_score(3, 2, 1, 0, 1592498639000, 1586537039000, badge )
+@pytest.fixture(scope='function')
+def retain():
+    badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    return add_retain_score(3, 2, 1, 0, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
 
 
 # @pytest.fixture(scope='function')
