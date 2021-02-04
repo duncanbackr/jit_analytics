@@ -1,4 +1,4 @@
-from tests.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
+from Tests.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
     top_fan, trend_fan, re_engaged_fan, other_fan, growth, retain
 import datetime
 from Analytics.preparedict import unpack
