@@ -3,7 +3,7 @@ from Sort.sortdata import sort_growth_score, sort_retain_score, sort_balanced_sc
 def backr_sort(proccessed_comments, param = None):
     '''takes in param and sorts by 'timestamp', 'balanced', 'growth', 'retention'
     default is the balanced score; can take param = None which returns the deault'''
-
+    
     if param == 'growth':
         return sort_growth_score(proccessed_comments)
     elif param == 'retain':

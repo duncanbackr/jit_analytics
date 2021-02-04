@@ -14,6 +14,9 @@ def add_score(all_rows, cut_off_data):
     for k in range(len(all_rows)):
         comment = unpack(all_rows[k])
 
+        if comment is None:
+            continue
+
         y = comment['parent_youtube_comment_id']
 
         if str(y) =='None':
