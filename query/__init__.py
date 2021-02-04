@@ -1,2 +1,2 @@
-from Query.db import latest_comments
-from Query.backrest import batch_data
+from query.db import latest_comments
+from query.backrest import batch_data
