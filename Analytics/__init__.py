@@ -47,4 +47,4 @@ def add_score(all_rows, cut_off_data):
             else:
                 replies[y] = [comment]
             
-    return  proccessed_comments, replies 
+    return  (proccessed_comments, replies)

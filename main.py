@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 import Query
 import Analytics
+import Sort
 
 if __name__ == '__main__':
      creator_id = 37 # TODO grab these from the request params
@@ -14,4 +15,3 @@ if __name__ == '__main__':
      proccessed_comments = Analytics.add_score(raw_data, cut_off_data)
      
      print(proccessed_comments)
-
