@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from Analytics.delayscores import create_delay_scores
 
 def add_badge(total_comments, top_fan_cutoff, timestamp, sec_comment):
