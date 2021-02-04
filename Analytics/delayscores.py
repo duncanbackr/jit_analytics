@@ -1,18 +1,18 @@
 from datetime import datetime, timezone
 
-def create_delay_scores(timestamp, sec_comment, max_date):
+def create_delay_scores(timestamp, sec_comment):
     '''subtracts dates in dataframe from todays date and converts 
     to # of days with logic for if the value is a nan'''
 
-    today = datetime.fromtimestamp(max_date/1000)
-    last_comment = datetime.fromtimestamp(timestamp/1000)
+    today = datetime.now()
+    last_comment = timestamp
 
     delay1 = (today - last_comment).days 
 
-    if str(sec_comment) == 'nan':
+    if str(sec_comment) == 'None':
         sec_last = 0
     else: 
-        sec_last = datetime.fromtimestamp(sec_comment/1000)
+        sec_last = sec_comment
 
     if sec_last != 0:
         delay2 = (last_comment - sec_last).days

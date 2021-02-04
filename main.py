@@ -4,8 +4,6 @@ import Analytics
 
 all_rows = Query.query_db()
 
-#today = datetime.now()
-
 ##(mean, sd)##
 cut_off_data = [4, 2]
 top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]

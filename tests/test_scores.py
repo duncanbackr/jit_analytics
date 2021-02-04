@@ -1,6 +1,6 @@
-from tests.fixtures import new_fan, top_fan, trend_fan, re_engaged_fan, other_fan
-from tests.fixtures import growth, retain, badge
-from tests.fixtures import neg_date, empty, unpack_row
+from Tests.fixtures import new_fan, top_fan, trend_fan, re_engaged_fan, other_fan
+from Tests.fixtures import growth, retain, badge
+from Tests.fixtures import neg_date, empty, unpack_row
 from math import nan
 
 ####badge tests####
