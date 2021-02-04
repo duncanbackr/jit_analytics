@@ -7,7 +7,8 @@ from Analytics.retainscore import add_retain_score
 from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
 import math
 
-def add_score(all_rows, top_fan_cutoff): 
+def add_score(all_rows, cut_off_data):
+    top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
     replies = {}
     proccessed_comments = []
     for k in range(len(all_rows)):

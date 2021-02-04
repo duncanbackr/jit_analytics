@@ -1,15 +1,11 @@
-import math 
+import math
+from Analytics.constants import sql_columns
 
 def unpack(row):
-    '''converts row in list of lists into dictionary'''
+    '''converts row to dictionary'''
 
-    keys = ['comment_id', 'parent_youtube_comment_id', 'youtube_fan_id', 'content',
-        'archived', 'timestamp', 'video_title', 'total_comments',
-        'total_replies', 'responses', 'sec_comment', 'account_title',
-        'thumbnail_url']
-
-    ####validate values for each key####
-
-    comment = {keys[i]:row[i] for i in range(len(keys))} 
+    comment = {sql_columns[i]['name']: row[i] 
+              for i in range(len(sql_columns))
+              if type(row[i]) is sql_columns[i]['type']}
 
     return comment

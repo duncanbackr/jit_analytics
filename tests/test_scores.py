@@ -1,6 +1,7 @@
-from Tests.fixtures import new_fan, top_fan, trend_fan, re_engaged_fan, other_fan
-from Tests.fixtures import growth, retain, badge
-from Tests.fixtures import neg_date, empty, unpack_row
+from tests.fixtures import new_fan, top_fan, trend_fan, \
+    re_engaged_fan, other_fan, growth, retain, badge, \
+    neg_date, empty, unpack_row, raw_rows
+import datetime
 from math import nan
 
 ####badge tests####
@@ -40,21 +41,21 @@ def test_empty(empty):
     assert 1.75 == empty
 
 def test_unpack(unpack_row):
-    assert {'account_title': 'fan_name',
-          'archived': False,
-          'comment_id': 3,
-          'content': 'content',
-          'max': 1592585039000,
-          'parent_youtube_comment_id': nan,
-          'responses': 0,
-          'sec_comment': nan,
-          'thumbnail_url': 'url',
-          'timestamp': 1589318511000,
-          'total_comments': 1,
-          'total_replies': 0,
-          'video_title': 'video',
-         'youtube_fan_id': 2} == unpack_row
+    assert unpack_row == {
+        'account_title': 'H D',
+        'archived': False,
+        'comment_id': 10270,
+        'content': "Hello it's 10:44am",
+        'engagement_class_id': 5,
+        'responses': 5,
+        'sec_comment': datetime.datetime(2020, 9, 18, 21, 22, 48),
+        'thumbnail_url': 'https://yt3.ggpht.com/a/AATXAJzgJr8LM_13j_9prEtQ2YsJoBF-nBSUtoP9Jw=s48-c-k-c0xffffffff-no-rj-mo',
+        'timestamp': datetime.datetime(2020, 9, 21, 14, 44, 50),
+        'total_comments': 6,
+        'total_replies': 0,
+        'video_id': 211,
+        'video_title': 'Blank video number 1',
+        'youtube_fan_id': 5491}
 
-
-
-
+def test_unpack_list(raw_rows, unpacked_rows):
+    assert raw_rows == unpacked_rows
