@@ -2,14 +2,16 @@ from datetime import datetime, timezone
 import Query
 import Analytics
 
-all_rows = Query.query_db()
-
-##(mean, sd)##
-cut_off_data = [4, 2]
-top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
-
-
 if __name__ == '__main__':
-     proccessed_comments = Analytics.add_score(all_rows, top_fan_cutoff)
+     creator_id = 37 # TODO grab these from the request params
+     limit = 5000
+     
+     """ Get data from db and backrest """
+     raw_data = Query.db.latest_comments(creator_id, limit)
+     cut_off_data = Query.backrest.batch_data(creator_id)
+
+     """ Add analytics calculations """
+     proccessed_comments = Analytics.add_score(raw_data, cut_off_data)
+     
      print(proccessed_comments)
 
