@@ -1,20 +1,17 @@
-from Sort.sortdata import sort_growth_score, sort_retain_score, sort_balanced_score, sort_timestamp, sort_badge_score
 
 def backr_sort(proccessed_comments, param = None):
     '''takes in param and sorts by 'timestamp', 'balanced', 'growth', 'retention'
     default is the balanced score; can take param = None which returns the deault'''
     
-    if param == 'growth':
-        return sort_growth_score(proccessed_comments)
-    elif param == 'retain':
-        return sort_retain_score(proccessed_comments)
+    if param == 'growth_score':
+        return sorted(proccessed_comments, key=lambda k : k['growth_score']) 
+    elif param == 'retain_score':
+        return sorted(proccessed_comments, key=lambda k : k['retain_score'], reverse=True)
     elif param == 'timestamp':
-        return sort_timestamp(proccessed_comments)
-    elif param == 'balanced':
-        return sort_balanced_score(proccessed_comments)
-    elif param == 'badge':
-        return sort_badge_score(proccessed_comments)
+        return sorted(proccessed_comments, key=lambda k : k['timestamp'])
+    elif param == 'balanced_score':
+        return sorted(proccessed_comments, key=lambda k : k['balanced_score'], reverse=True)
+    elif param == 'badge_score':
+        return sorted(proccessed_comments, key=lambda k : k['badge_score'], reverse=True) 
     else: 
-        return sort_balanced_score(proccessed_comments)
-
-    
+        return sorted(proccessed_comments, key=lambda k : k['balanced_score'], reverse=True) 
