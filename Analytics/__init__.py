@@ -1,9 +1,9 @@
 from Analytics.addbadge import add_badge
 from Analytics.badgescore import add_fan_score
 from Analytics.delayscores import create_delay_scores
-from Analytics.growthscore import add_growth_score
+from Analytics.growthscore import add_growth
 from Analytics.preparedict import unpack
-from Analytics.retainscore import add_retain_score
+from Analytics.retainscore import add_retention
 from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
 import math
 
@@ -23,18 +23,18 @@ def add_score(all_rows, cut_off_data):
             comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, 
                                    comment['timestamp'], comment['sec_comment'])
 
-            comment['growth_score'] = add_growth_score(comment['total_comments'], top_fan_cutoff, 
+            comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['timestamp'], 
                                                     comment['sec_comment'], comment['badge'])
 
-            comment['retain_score'] = add_retain_score(comment['total_comments'], top_fan_cutoff, 
+            comment['retention'] = add_retention(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['total_replies'], comment['timestamp'], 
                                                     comment['sec_comment'], comment['badge'])
 
-            comment['balanced_score'] = 0.5*(add_retain_score(comment['total_comments'], top_fan_cutoff, 
+            comment['balanced'] = 0.5*(add_retention(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['total_replies'], comment['timestamp'], 
                                                     comment['sec_comment'], comment['badge']) + 
-                                                    add_growth_score(comment['total_comments'], top_fan_cutoff, 
+                                                    add_growth(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['timestamp'], 
                                                     comment['sec_comment'], comment['badge']))
 

@@ -5,20 +5,20 @@ from math import nan
 
 # ####badge tests####
 
-# def test_badge_New(new_fan):
-#     assert 'new_fan' ==  new_fan
+# def test_badge_New(newFan):
+#     assert 'newFan' ==  newFan
 
 # def test_badge_Top(top_fan):
 #     assert 'top_fan' ==  top_fan
 
 # def test_badge_Trend(trend_fan):
-#     assert 'trending_fan' ==  trend_fan
+#     assert 'trendingFan' ==  trend_fan
 
 # def test_badge_Other(other_fan):
 #     assert 'None' ==  other_fan
 
 # def test_badge_re_engaged(re_engaged_fan):
-#     assert 're-engaged Fan' ==  re_engaged_fan
+#     assert 'reEngageFan' ==  re_engaged_fan
 
 # ####score tests ####
 

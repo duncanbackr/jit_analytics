@@ -1,7 +1,7 @@
 import pytest
 from Analytics.addbadge import add_badge
-from Analytics.growthscore import add_growth_score
-from Analytics.retainscore import add_retain_score
+from Analytics.growthscore import add_growth
+from Analytics.retainscore import add_retention
 from Analytics.badgescore import add_fan_score
 from Analytics.preparedict import unpack
 from math import nan
@@ -10,7 +10,7 @@ import datetime
 ##################badge fixtures######################
 
 # @pytest.fixture(scope='function')
-# def new_fan():
+# def newFan():
 #     return add_badge(1, 2, datetime.date(2007, 12, 5), nan)
 
 # @pytest.fixture(scope='function')
@@ -35,13 +35,13 @@ import datetime
 # @pytest.fixture(scope='function')
 # def growth():
 #     badge = add_badge(2, 2, 1592239439000,nan)
-#     return add_growth_score(2, 2, 0,1592239439000,nan, badge )
+#     return add_growth(2, 2, 0,1592239439000,nan, badge )
 
 
 # @pytest.fixture(scope='function')
 # def retain():
 #     badge = add_badge(3, 2,1592498639000, 1586537039000)
-#     return add_retain_score(3, 2, 1, 0, 1592498639000, 1586537039000, badge )
+#     return add_retention(3, 2, 1, 0, 1592498639000, 1586537039000, badge )
 
 
 # @pytest.fixture(scope='function')

@@ -9,14 +9,17 @@ def add_badge(total_comments, top_fan_cutoff, timestamp, sec_comment):
     delay3 = create_delay_scores(timestamp, sec_comment)[2]
         
     if total_comments == 1:
-        return 'new_fan'                   
+        return 'newFan'                   
     elif delay3 >= 30 and delay1 < 14:
-        return 're-engaged Fan'
+        return 'reEngageFan'
     elif total_comments > top_fan_cutoff:
-        return 'top_fan'
+        return 'topFan'
     elif delay3 < 7:
-        return 'trending_fan'
+        return 'trendingFan'
     else:
         return 'None'
 
     return badge 
+
+#TODO
+    #'All', 'newFan', 'topFan', 'trendingFan', 'reEngageFan', None

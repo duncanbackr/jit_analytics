@@ -1,0 +1,1 @@
+from Filter.apply import from_list

@@ -9,7 +9,7 @@ def add_growth_score(total_comments, top_fan_cutoff, total_responses, timestamp,
     delay2 = create_delay_scores(timestamp, sec_comment)[1]
     delay3 = create_delay_scores(timestamp, sec_comment)[2]
 
-    if badge == 'new_fan':
+    if badge == 'newFan':
         return 0.5 + response_score(total_responses) + delay1_score(delay1)
     
     else:
