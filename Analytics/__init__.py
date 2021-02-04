@@ -46,4 +46,4 @@ def add_score(all_rows, top_fan_cutoff):
             else:
                 replies[y] = [comment]
             
-    return  proccessed_comments, replies 
+    return  (proccessed_comments, replies)
