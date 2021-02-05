@@ -1,5 +1,27 @@
 '''each function scales a different parameter used in the growth, retention and badge scores'''
 
+def bin(value, bin_ranges):
+    """
+    params: 
+        value: int
+        bin_ranges: [ (0, 5, 0.5)
+            {
+                'lower_bound': [0, 5],
+                'value': 0.5 
+            },
+            {
+                'range': [5, 14],
+                'value': 1 
+            }
+        ]
+
+    returns:
+        value
+
+    """
+    # TODO 
+    return
+
 def delay2_score(delay2):
     if delay2 <= 5:
         return 0.5
