@@ -2,14 +2,12 @@ from datetime import datetime
 from Analytics.delayscores import create_delay_scores
 from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
 
-def add_growth_score(total_comments, top_fan_cutoff, total_responses, timestamp, sec_comment, badge):
+def add_growth(total_comments, top_fan_cutoff, total_responses, badge, delays):
     '''takes in parameters and outputs growth scores'''
     
-    delay1 = create_delay_scores(timestamp, sec_comment)[0]
-    delay2 = create_delay_scores(timestamp, sec_comment)[1]
-    delay3 = create_delay_scores(timestamp, sec_comment)[2]
+    delay1, delay1, delay1 = delays
 
-    if badge == 'new_fan':
+    if badge == 'newFan':
         return 0.5 + response_score(total_responses) + delay1_score(delay1)
     
     else:
