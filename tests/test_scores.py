@@ -1,6 +1,7 @@
 
 from Tests.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
-    top_fan, trend_fan, re_engaged_fan, other_fan, growth, retain, badge
+    top_fan, trend_fan, re_engaged_fan, other_fan, growth, retain, badge, \
+        sort_none, sort_growth
 import datetime
 from Analytics.preparedict import unpack
 from math import nan
@@ -32,6 +33,22 @@ def test_score_retain(retain):
 
 def test_score_badge(badge):
     assert 1.5 ==  badge
+
+
+########sort############
+
+def test_sort_none(sort_none):
+    assert [{'growth':6, 'balanced':8},{'growth':5, 'balanced':4}, {'growth':2, 'balanced':3}] == sort_none
+
+def test_sort_growth(sort_growth):
+    assert [{'growth':2, 'balanced':3}, {'growth':5, 'balanced':4}, {'growth':6, 'balanced':8}] == sort_growth
+
+
+########filter############
+
+
+
+
 
 # #####exeption tests#####
 

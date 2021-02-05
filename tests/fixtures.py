@@ -4,6 +4,7 @@ from Analytics.growthscore import add_growth
 from Analytics.retainscore import add_retention
 from Analytics.badgescore import add_fan_score
 from Analytics.preparedict import unpack
+import Sort
 from math import nan
 import datetime
 
@@ -48,6 +49,25 @@ def retain():
 def badge():
     badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
     return add_fan_score(3, 2, 1, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
+
+########sort############
+
+@pytest.fixture(scope='function')
+def sort_none():
+    proccessed_comments = [{'growth':2, 'balanced':3}, {'growth':6, 'balanced':8}, {'growth':5, 'balanced':4}]
+    return Sort.from_list(proccessed_comments, None)
+
+@pytest.fixture(scope='function')
+def sort_growth():
+    proccessed_comments = [{'growth':2, 'balanced':3}, {'growth':6, 'balanced':8}, {'growth':5, 'balanced':4}]
+    return Sort.from_list(proccessed_comments, 'growth')
+
+########filter############
+
+
+
+
+
 
 
 # ################exception fixtures#################

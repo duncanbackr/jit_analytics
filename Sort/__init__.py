@@ -6,6 +6,6 @@ def from_list(proccessed_comments, param = None):
     reverse_dict ={'growth':False, 'retention':True, 'timestamp':False, 'badge_score':True, 'balanced':True}
     
     if param:
-        return sorted(proccessed_comments, key=lambda k : k[param], reverse_dict[param]) 
+        return sorted(proccessed_comments, key=lambda k : k[param], reverse = reverse_dict[param]) 
     else: 
         return sorted(proccessed_comments, key=lambda k : k['balanced'], reverse=True) 
