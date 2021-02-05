@@ -5,6 +5,7 @@ from Analytics.retainscore import add_retention
 from Analytics.badgescore import add_fan_score
 from Analytics.preparedict import unpack
 import Sort
+from Filter import from_list
 from math import nan
 import datetime
 
@@ -64,9 +65,15 @@ def sort_growth():
 
 ########filter############
 
+@pytest.fixture(scope='function')
+def filter_badge():
+    proccessed_comments = [{'growth':2, 'badge':'topFan'}, {'growth':6, 'badge':'newFan'}, {'growth':5, 'badge':'topFan'}]
+    return from_list(proccessed_comments, badge = 'topFan')
 
-
-
+@pytest.fixture(scope='function')
+def filter_archived():
+    proccessed_comments = [{'archived':False, 'badge':'topFan'}, {'archived':False, 'badge':'newFan'}, {'archived':True, 'badge':'topFan'}]
+    return from_list(proccessed_comments, archived = True)
 
 
 

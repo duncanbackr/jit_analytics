@@ -1,7 +1,7 @@
 
 from Tests.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
     top_fan, trend_fan, re_engaged_fan, other_fan, growth, retain, badge, \
-        sort_none, sort_growth
+        sort_none, sort_growth, filter_badge, filter_archived
 import datetime
 from Analytics.preparedict import unpack
 from math import nan
@@ -46,8 +46,11 @@ def test_sort_growth(sort_growth):
 
 ########filter############
 
+def test_filter_badge(filter_badge):
+    assert [{'growth':2, 'badge':'topFan'}, {'growth':5, 'badge':'topFan'}] == filter_badge
 
-
+def test_filter_archive(filter_archived):
+    assert [{'archived':True, 'badge':'topFan'}] == filter_archived
 
 
 # #####exeption tests#####
