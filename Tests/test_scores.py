@@ -58,6 +58,7 @@ def test_unpack(unpack_row):
         'up_vote': None,
         'video_id': 211,
         'video_title': 'Blank video number 1',
+        'note': None,
         'youtube_fan_id': 5491,
     }
 

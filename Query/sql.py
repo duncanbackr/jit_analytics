@@ -157,6 +157,7 @@ def full_query(creator_id, limit=5000):
                 fan_aggregations.sec_comment,
                 youtube_fans.account_title,
                 youtube_fans.thumbnail_url,
+                youtube_fans.note,
                 engagement_analytics.engagement_class_id
             FROM
                 top_comments_with_replies
@@ -201,7 +202,8 @@ def full_query(creator_id, limit=5000):
                 SELECT
                     id,
                     account_title,
-                    thumbnail_url
+                    thumbnail_url,
+                    note
                 FROM
                     youtube_fans
             )
