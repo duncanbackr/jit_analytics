@@ -1,5 +1,5 @@
 from Analytics.addbadge import add_badge
-from Analytics.badgescore import add_fan_score
+from Analytics.badgescore import  add_badge_score
 from Analytics.delayscores import create_delay_scores
 from Analytics.growthscore import add_growth_score
 from Analytics.preparedict import unpack
@@ -19,28 +19,31 @@ def add_score(all_rows, cut_off_data):
 
         y = comment['parent_youtube_comment_id']
 
-        if str(y) =='None':
-            comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, 
-                                   comment['timestamp'], comment['sec_comment'])
+        if y is None:
+
+            delays = create_delay_scores(comment['timestamp'], comment['sec_comment'])
+
+            comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, delays)
 
             comment['growth_score'] = add_growth_score(comment['total_comments'], top_fan_cutoff, 
-                                                    comment['responses'], comment['timestamp'], 
-                                                    comment['sec_comment'], comment['badge'])
+                                                    comment['responses'], comment['badge'], delays)
 
             comment['retain_score'] = add_retain_score(comment['total_comments'], top_fan_cutoff, 
-                                                    comment['responses'], comment['total_replies'], comment['timestamp'], 
-                                                    comment['sec_comment'], comment['badge'])
+                                                    comment['responses'], comment['total_replies'], comment['badge'], delays)
 
-            comment['balanced_score'] = 0.5*(add_retain_score(comment['total_comments'], top_fan_cutoff, 
-                                                    comment['responses'], comment['total_replies'], comment['timestamp'], 
-                                                    comment['sec_comment'], comment['badge']) + 
-                                                    add_growth_score(comment['total_comments'], top_fan_cutoff, 
-                                                    comment['responses'], comment['timestamp'], 
-                                                    comment['sec_comment'], comment['badge']))
+            comment['balanced_score'] = 0.5*(
+                                            add_retain_score(comment['total_comments'], top_fan_cutoff, 
+                                                    comment['responses'], comment['total_replies'], comment['badge'], delays) 
+                                            
+                                            + 
+                                            
+                                            add_growth_score(comment['total_comments'], top_fan_cutoff, 
+                                                    comment['responses'], comment['badge'], delays)
+                                            
+                                            )
 
-            comment['badge_score'] = add_fan_score(comment['total_comments'], top_fan_cutoff, 
-                                                    comment['responses'], comment['timestamp'], 
-                                                    comment['sec_comment'], comment['badge'])
+            comment['badge_score'] =  add_badge_score(comment['total_comments'], top_fan_cutoff, 
+                                                    comment['responses'], comment['badge'], delays)
 
             proccessed_comments.append(comment)
 

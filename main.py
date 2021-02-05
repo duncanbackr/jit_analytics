@@ -1,7 +1,5 @@
 from datetime import datetime
-import Query
-import Analytics
-import sort
+import Query, Analytics, Sort
 
 if __name__ == '__main__':
      creator_id = 37 # TODO grab these from the request params
