@@ -1,32 +1,34 @@
-from Tests.fixtures import unpack_row, raw_rows, unpacked_rows
+
+from Tests.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
+    top_fan, trend_fan, re_engaged_fan, other_fan, growth, retain
 import datetime
 from Analytics.preparedict import unpack
 from math import nan
 
 # ####badge tests####
 
-# def test_badge_New(newFan):
-#     assert 'newFan' ==  newFan
+def test_badge_New(new_fan):
+    assert 'new_fan' ==  new_fan
 
-# def test_badge_Top(top_fan):
-#     assert 'top_fan' ==  top_fan
+def test_badge_Top(top_fan):
+    assert 'top_fan' ==  top_fan
 
-# def test_badge_Trend(trend_fan):
-#     assert 'trendingFan' ==  trend_fan
+def test_badge_Trend(trend_fan):
+    assert 'trending_fan' ==  trend_fan
 
-# def test_badge_Other(other_fan):
-#     assert 'None' ==  other_fan
+def test_badge_Other(other_fan):
+    assert 'None' ==  other_fan
 
-# def test_badge_re_engaged(re_engaged_fan):
-#     assert 'reEngageFan' ==  re_engaged_fan
+def test_badge_re_engaged(re_engaged_fan):
+    assert 're-engaged Fan' ==  re_engaged_fan
 
 # ####score tests ####
 
-# def test_score_growth(growth):
-#     assert 2.35 ==  growth
+def test_score_growth(growth):
+    assert 3.1 ==  growth
 
-# def test_score_retain(retain):
-#     assert 6 ==  retain
+def test_score_retain(retain):
+    assert 3 ==  retain
 
 # def test_score_badge(badge):
 #     assert 2 ==  badge

@@ -9,39 +9,39 @@ import datetime
 
 ##################badge fixtures######################
 
-# @pytest.fixture(scope='function')
-# def newFan():
-#     return add_badge(1, 2, datetime.date(2007, 12, 5), nan)
+@pytest.fixture(scope='function')
+def new_fan():
+    return add_badge(1, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), None)
 
-# @pytest.fixture(scope='function')
-# def top_fan():
-#     return add_badge(3, 2, datetime.date(2007, 12, 5), nan)
+@pytest.fixture(scope='function')
+def top_fan():
+    return add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), None)
 
-# @pytest.fixture(scope='function')
-# def trend_fan():
-#     return add_badge(2, 2, 1589318511000, 1593103439000)
+@pytest.fixture(scope='function')
+def trend_fan():
+    return add_badge(2, 2, datetime.datetime(2021, 1, 31, 18, 32, 34), datetime.datetime(2021, 2, 1, 18, 32, 34))
 
-# @pytest.fixture(scope='function')
-# def re_engaged_fan():
-#     return add_badge(2, 2, 1591807439000,1581356639000)
+@pytest.fixture(scope='function')
+def re_engaged_fan():
+    return add_badge(2, 2, datetime.datetime(2021, 1, 31, 18, 32, 34),datetime.datetime(2020, 9, 12, 18, 32, 34))
 
-# @pytest.fixture(scope='function')
-# def other_fan():
-#     return add_badge(2, 2, 1580924639000, 1578246239000)
+@pytest.fixture(scope='function')
+def other_fan():
+    return add_badge(2, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
 
 
 # ############score fixtures###################
 
-# @pytest.fixture(scope='function')
-# def growth():
-#     badge = add_badge(2, 2, 1592239439000,nan)
-#     return add_growth(2, 2, 0,1592239439000,nan, badge )
+@pytest.fixture(scope='function')
+def growth():
+    badge = add_badge(2, 2, datetime.datetime(2020, 9, 12, 18, 32, 34),None)
+    return add_growth_score(2, 2, 0, datetime.datetime(2020, 9, 12, 18, 32, 34),None, badge )
 
 
-# @pytest.fixture(scope='function')
-# def retain():
-#     badge = add_badge(3, 2,1592498639000, 1586537039000)
-#     return add_retention(3, 2, 1, 0, 1592498639000, 1586537039000, badge )
+@pytest.fixture(scope='function')
+def retain():
+    badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    return add_retain_score(3, 2, 1, 0, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
 
 
 # @pytest.fixture(scope='function')
