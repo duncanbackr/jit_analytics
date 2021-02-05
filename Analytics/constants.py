@@ -85,7 +85,7 @@ sql_columns = [
         'name': 'note', 
         'type':str, 
         'required': False
-    }
+    },
     {
         'name': 'engagement_class_id', 
         'type':int, 
