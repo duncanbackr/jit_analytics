@@ -1,8 +1,9 @@
 import pytest
+from Analytics.delayscores import create_delay_scores
 from Analytics.addbadge import add_badge
 from Analytics.growthscore import add_growth
 from Analytics.retainscore import add_retention
-from Analytics.badgescore import add_fan_score
+from Analytics.badgescore import  add_badge_score
 from Analytics.preparedict import unpack
 import Sort
 from Filter import from_list
@@ -13,43 +14,51 @@ import datetime
 
 @pytest.fixture(scope='function')
 def new_fan():
-    return add_badge(1, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), None)
+    delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), None)
+    return add_badge(1, 2, delays)
 
 @pytest.fixture(scope='function')
 def top_fan():
-    return add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), None)
+    delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 20, 18, 32, 34))
+    return add_badge(3, 2, delays)
 
 @pytest.fixture(scope='function')
 def trend_fan():
-    return add_badge(2, 2, datetime.datetime(2021, 1, 31, 18, 32, 34), datetime.datetime(2021, 2, 1, 18, 32, 34))
+    delays = create_delay_scores(datetime.datetime(2021, 1, 31, 18, 32, 34), datetime.datetime(2021, 2, 1, 18, 32, 34))
+    return add_badge(2, 2, delays)
 
 @pytest.fixture(scope='function')
 def re_engaged_fan():
-    return add_badge(2, 2, datetime.datetime(2021, 1, 31, 18, 32, 34),datetime.datetime(2020, 9, 12, 18, 32, 34))
+    delays = create_delay_scores(datetime.datetime(2021, 1, 31, 18, 32, 34),datetime.datetime(2020, 9, 12, 18, 32, 34))
+    return add_badge(2, 2, delays)
 
 @pytest.fixture(scope='function')
 def other_fan():
-    return add_badge(2, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    return add_badge(2, 2, delays)
 
 
 # ############score fixtures###################
 
 @pytest.fixture(scope='function')
 def growth():
-    badge = add_badge(2, 2, datetime.datetime(2020, 9, 12, 18, 32, 34),None)
-    return add_growth(2, 2, 0, datetime.datetime(2020, 9, 12, 18, 32, 34),None, badge )
+    delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 18, 18, 32, 34))
+    badge = add_badge(2, 2, delays)
+    return add_growth(2, 2, 0, badge, delays)
 
 
 @pytest.fixture(scope='function')
 def retain():
-    badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
-    return add_retention(3, 2, 1, 0, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
+    delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    badge = add_badge(3, 2, delays)
+    return add_retention(3, 2, 1, 0, badge, delays)
 
 
 @pytest.fixture(scope='function')
 def badge():
-    badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
-    return add_fan_score(3, 2, 1, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
+    delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    badge = add_badge(3, 2, delays)
+    return  add_badge_score(3, 2, 1, badge, delays)
 
 ########sort############
 

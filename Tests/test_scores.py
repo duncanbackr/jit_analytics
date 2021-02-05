@@ -18,7 +18,7 @@ def test_badge_Trend(trend_fan):
     assert 'trendingFan' ==  trend_fan
 
 def test_badge_Other(other_fan):
-    assert 'None' ==  other_fan
+    assert None ==  other_fan
 
 def test_badge_re_engaged(re_engaged_fan):
     assert 'reEngageFan' ==  re_engaged_fan
