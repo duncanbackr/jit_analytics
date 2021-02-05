@@ -82,8 +82,12 @@ sql_columns = [
         'required': False
     },
     {
-        'name':
-        'engagement_class_id', 
+        'name': 'note', 
+        'type':str, 
+        'required': False
+    }
+    {
+        'name': 'engagement_class_id', 
         'type':int, 
         'required': False
     }
