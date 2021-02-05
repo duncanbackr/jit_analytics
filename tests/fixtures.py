@@ -35,32 +35,22 @@ def other_fan():
 @pytest.fixture(scope='function')
 def growth():
     badge = add_badge(2, 2, datetime.datetime(2020, 9, 12, 18, 32, 34),None)
-    return add_growth_score(2, 2, 0, datetime.datetime(2020, 9, 12, 18, 32, 34),None, badge )
+    return add_growth(2, 2, 0, datetime.datetime(2020, 9, 12, 18, 32, 34),None, badge )
 
 
 @pytest.fixture(scope='function')
 def retain():
     badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
-    return add_retain_score(3, 2, 1, 0, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
+    return add_retention(3, 2, 1, 0, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
 
 
-# @pytest.fixture(scope='function')
-# def badge():
-#     badge = add_badge(6, 3, 1592239439000,1591375439000 )
-#     return add_fan_score(6, 3, 0, 1592239439000,1591375439000, badge)
+@pytest.fixture(scope='function')
+def badge():
+    badge = add_badge(3, 2, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
+    return add_fan_score(3, 2, 1, datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34), badge )
+
 
 # ################exception fixtures#################
-
-# @pytest.fixture(scope='function')
-# def neg_date():
-#     badge = add_badge(6, 3, -1592239439000,1591375439000)
-#     return add_fan_score(6, 3, 0, -1592239439000,1591375439000, badge)
-
-
-# @pytest.fixture(scope='function')
-# def empty():
-#     badge = add_badge(nan, 2, 1592239439000, nan)
-#     return add_fan_score(nan, nan, nan, 1592239439000, nan, badge)
 
 @pytest.fixture(scope='function')
 def unpack_row():
