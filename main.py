@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 import Query
 import Analytics
 import Sort
@@ -9,10 +9,10 @@ if __name__ == '__main__':
      limit = 5000
      
      """ Get data from db and backrest """
-     raw_data = Query.db.latest_comments(creator_id, limit)
-     cut_off_data = Query.backrest.batch_data(creator_id)
+     raw_data = Query.latest_comments(creator_id, limit)
+     cut_off_data = Query.batch_data(creator_id)
 
      """ Add analytics calculations """
-     proccessed_comments = Analytics.add_score(raw_data, cut_off_data)
+     all_comments = Analytics.add_score(raw_data, cut_off_data)
      
-     print(proccessed_comments)
+     print(all_comments)

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from Analytics.delayscores import create_delay_scores
 from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
 

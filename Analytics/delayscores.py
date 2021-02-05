@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 def create_delay_scores(timestamp, sec_comment):
     '''subtracts dates in dataframe from todays date and converts 
