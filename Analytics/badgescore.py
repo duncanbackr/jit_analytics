@@ -9,16 +9,16 @@ def add_fan_score(total_comments, top_fan_cutoff, total_responses, timestamp, se
     delay2 = create_delay_scores(timestamp, sec_comment)[1]
     delay3 = create_delay_scores(timestamp, sec_comment)[2]
 
-    if badge == 'new_fan':
+    if badge == 'newFan':
         return delay1_score(delay1)
 
-    elif badge == 'trending_fan':
+    elif badge == 'trendingFan':
         return comment_score(total_comments, top_fan_cutoff) - delay1_score(delay1)
 
-    elif badge == 're-engaged Fan':
+    elif badge == 'reEngageFan':
         return  delay2_score(delay2) - delay1_score(delay1)
 
-    elif badge == 'top_fan':
+    elif badge == 'topFan':
         return comment_score(total_comments, top_fan_cutoff)
 
     else:
