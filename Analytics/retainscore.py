@@ -1,16 +1,21 @@
 from datetime import datetime
 from Analytics.delayscores import create_delay_scores
-from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
+from Analytics.scale import delay1_dict, delay2_dict, delay3_dict, comments_dict, \
+    reply_dict, response_dict, bin_scale
 
 def add_retention(total_comments, top_fan_cutoff, total_responses, total_replies, badge, delays):
     '''takes in parameters and returns retention score'''
 
     delay1, delay2, delay3 = delays
     
+    x = total_comments/top_fan_cutoff
+    
     if badge == 'New Fan':
-        return comment_score(total_comments, top_fan_cutoff) - response_score(total_responses) + 1/delay1_score(delay1) + delay3_score(delay3) - 1 + reply_score(total_replies)
+        return (bin_scale(x, comments_dict) - bin_scale(total_responses, response_dict) + 1/bin_scale(delay1, delay1_dict) + 
+                            bin_scale(delay3, delay3_dict) - 1 + bin_scale(total_replies, reply_dict))
     elif badge == 'reEngageFan':
-        return comment_score(total_comments, top_fan_cutoff) - response_score(total_responses) + 1/delay1_score(delay1) + delay3_score(delay3) + 2 + reply_score(total_replies)
+        return (bin_scale(x, comments_dict) - bin_scale(total_responses, response_dict) + 1/bin_scale(delay1, delay1_dict)  + 
+                                bin_scale(delay3, delay3_dict) + 2 + bin_scale(total_replies, reply_dict))
     else:
-        return comment_score(total_comments, top_fan_cutoff) - response_score(total_responses) + delay3_score(delay3) + reply_score(total_replies)
+        return bin_scale(x, comments_dict) - bin_scale(total_responses, response_dict) + bin_scale(delay3, delay3_dict) + bin_scale(total_replies, reply_dict)
 
