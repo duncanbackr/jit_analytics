@@ -7,7 +7,6 @@ from Analytics.badgescore import  add_badge_score
 from Analytics.preparedict import unpack
 import Sort
 from Filter import from_list
-from math import nan
 import datetime
 
 ##################badge fixtures######################

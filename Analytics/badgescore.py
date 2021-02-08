@@ -1,6 +1,7 @@
 from datetime import datetime
 from Analytics.delayscores import create_delay_scores
-from Analytics.scalescores import delay1_score, delay2_score, delay3_score, comment_score, reply_score, response_score
+from Analytics.scale import delay1_dict, delay2_dict, delay3_dict, comments_dict, \
+    reply_dict, response_dict, bin_scale
 
 def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, delays):
     '''takes in parameters and outputs badge score'''
@@ -8,16 +9,17 @@ def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, dela
     delay1, delay2, delay3 = delays
 
     if badge == 'newFan':
-        return delay1_score(delay1)
+        return bin_scale(delay1, delay1_dict)
 
     elif badge == 'trendingFan':
-        return comment_score(total_comments, top_fan_cutoff) - delay1_score(delay1)
+        return bin_scale(total_comments/top_fan_cutoff, comments_dict) - bin_scale(delay1, delay1_dict)
 
     elif badge == 'reEngageFan':
-        return  delay2_score(delay2) - delay1_score(delay1)
+        return  bin_scale(delay2, delay2_dict) - bin_scale(delay1, delay1_dict)
 
     elif badge == 'topFan':
-        return comment_score(total_comments, top_fan_cutoff)
+        return bin_scale(total_comments/top_fan_cutoff, comments_dict)
 
     else:
-        return comment_score(total_comments, top_fan_cutoff) + (delay2_score(delay2) - delay1_score(delay1)) 
+        return (bin_scale(total_comments/top_fan_cutoff, comments_dict) + bin_scale(delay2, delay2_dict) - 
+                            bin_scale(delay1, delay1_dict))
