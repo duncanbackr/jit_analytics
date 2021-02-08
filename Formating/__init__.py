@@ -28,7 +28,7 @@ def rename(comment, new_format):
     return {key: comment[name]
             for key, name in new_format.items()}
 
-def comments(comments:list, reply_dict:dict):
+def comments(comments, reply_dict):
     ''' 
         Function that re-formats comments
         
@@ -53,7 +53,7 @@ def comments(comments:list, reply_dict:dict):
     return final_list
         
 
-def fans(fans:list):
+def fans(fans):
     ''' 
         Function that re-formats fans keeping only first
         
