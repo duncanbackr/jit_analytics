@@ -13,6 +13,19 @@ comment_format = {
         # 'Replies': [],
     }
 
+reply_format = {
+        'platformAvatar': 'thumbnail_url',
+        'fanID': 'youtube_fan_id',
+        'authorDisplayName': 'account_title',
+        'commentDatePosted': 'timestamp',
+        'commentID': 'comment_id',
+        'textDisplay': 'content',
+        'archive': 'archived',
+        'up_vote': 'up_vote',
+        'down_vote': 'down_vote',
+        'videoTitle': 'video_title',
+    }
+
 fan_format = {
         'fanID': 'youtube_fan_id',
         'profileImage': 'thumbnail_url',
@@ -45,7 +58,7 @@ def comments(comments, reply_dict):
 
         replies = reply_dict.get(comment['comment_id'])
         if replies:
-            formated_comment['replies'] = [rename(comment, comment_format)
+            formated_comment['replies'] = [rename(comment, reply_format)
                     for comment in replies]
     
         final_list.append(formated_comment)

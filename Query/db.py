@@ -6,7 +6,7 @@ from Query.sql import full_query
 # TODO set this up so it looks for .env local and function envs in production
 load_dotenv(find_dotenv())
 
-def latest_comments(creator_id, limit=5000):
+def latest_comments(okta_id, limit=5000):
 
     conn = psycopg2.connect(f"dbname= {os.environ.get('DBNAME')} \
                             user={os.environ.get('DBUSER')} \
@@ -14,7 +14,7 @@ def latest_comments(creator_id, limit=5000):
                             password={os.environ.get('PASSWORD')}")
     cur = conn.cursor()
 
-    query_string = full_query(creator_id, limit)
+    query_string = full_query(okta_id, limit)
 
     cur.execute(query_string)
 
