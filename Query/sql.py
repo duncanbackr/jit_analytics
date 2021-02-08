@@ -1,4 +1,4 @@
-def full_query(creator_id, limit=5000):
+def full_query(okta_id, limit=5000):
     query = f'''
             WITH 
             -- FIRST CTE
@@ -29,12 +29,23 @@ def full_query(creator_id, limit=5000):
                     video.video_title as video_title,
                     video.video_id as video_id
                 FROM
-                    (
+                    (   
                         SELECT 
                             id as video_id,
                             video_title
-                        FROM public.youtube_videos
-                        WHERE creator_id = {creator_id}
+                        FROM
+                            (
+                                SELECT
+                                    id as creator_id
+                                FROM
+                                    creators
+                                WHERE
+                                    okta_platform_account_id = '{okta_id}'
+                            )
+                            creator
+                        JOIN
+                            youtube_videos
+                        ON youtube_videos.creator_id = creator.creator_id
                     )
                     video
                 JOIN 
