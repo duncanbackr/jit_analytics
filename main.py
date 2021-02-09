@@ -2,6 +2,7 @@ from datetime import datetime
 import Analytics, Filter, Formating, Query, Sort
 import time
 from flask import jsonify
+import config
 
 def main(request):
 
@@ -53,20 +54,10 @@ def main(request):
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param=requestArgs.get('order', 'balanced'))
-          end_sort =  time.process_time()
           final_list = Formating.comments(sorted_comments, replies, perPage)
-          end_format = time.process_time()
-          end_all =  time.process_time()
-     
-     times = {
-          'pull time (s)': end_pull - start,
-          'analytics time (s)': end_analytics - end_pull,
-          'filter time (s)':end_filter - end_analytics,
-          'sort time (s)':end_sort - end_filter,
-          'formating time (s)':end_format - end_sort,
-          'full time (s)':end_all - start
-     }
-     final_list.insert(0, times)
+
+     if config.ENV == 'Local':
+          return final_list
 
      return jsonify(final_list)
 
