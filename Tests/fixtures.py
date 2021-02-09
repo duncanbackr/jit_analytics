@@ -2,7 +2,7 @@ import pytest
 from Analytics.delayscores import create_delay_scores
 from Analytics.addbadge import add_badge
 from Analytics.growthscore import add_growth
-from Analytics.retainscore import add_retention
+from Analytics.retentionscore import add_retention
 from Analytics.badgescore import  add_badge_score
 from Analytics.preparedict import unpack
 import Sort
@@ -47,7 +47,7 @@ def growth():
 
 
 @pytest.fixture(scope='function')
-def retain():
+def retention():
     delays = create_delay_scores(datetime.datetime(2020, 9, 12, 18, 32, 34), datetime.datetime(2020, 9, 12, 18, 32, 34))
     badge = add_badge(3, 2, delays)
     return add_retention(3, 2, 1, 0, badge, delays)

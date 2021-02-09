@@ -3,7 +3,7 @@ from Analytics.badgescore import  add_badge_score
 from Analytics.delayscores import create_delay_scores
 from Analytics.growthscore import add_growth
 from Analytics.preparedict import unpack
-from Analytics.retainscore import add_retention
+from Analytics.retentionscore import add_retention
 from Analytics.scale import delay1_dict, delay2_dict, delay3_dict, comments_dict, \
     reply_dict, response_dict, bin_scale
   
@@ -30,7 +30,7 @@ def add_score(all_rows, cut_off_data):
             comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['badge'], delays)
 
-            comment['retain'] = add_retention(comment['total_comments'], 2, 
+            comment['retention'] = add_retention(comment['total_comments'], 2, 
                                                     comment['responses'], comment['total_replies'], comment['badge'], delays)
 
             comment['balanced'] = 0.5*(
