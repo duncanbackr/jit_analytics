@@ -23,12 +23,8 @@ def main(request):
      raw_data = Query.latest_comments(okta_id, limit)
      cut_off_data = Query.batch_data(okta_id)
      
-     end_pull =  time.process_time()
-
      """ Add analytics calculations """
      scored_comments, replies = Analytics.add_score(raw_data, cut_off_data)
-
-     end_analytics =  time.process_time()
 
      if requestArgs.get('resource') == 'fans':
           filtered_comments = Filter.from_list(
@@ -38,10 +34,7 @@ def main(request):
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param='badge_score')
-          end_sort =  time.process_time()
           final_list = Formating.fans(sorted_comments, perPage)
-          end_format = time.process_time()
-          end_all =  time.process_time()
 
      elif requestArgs.get('resource') == 'comments':
           filtered_comments = Filter.from_list(
@@ -61,11 +54,11 @@ def main(request):
 
      return jsonify(final_list)
 
-# if __name__ == '__main__':
-#      final_list = main(
-#           {
-#                'okta_id': '00u1h5s6uhNe35ICm4x7',
-#                'resource': 'comments',
-#                'badge': 'topFan'
-#      })
-#      print(final_list)
+if __name__ == '__main__':
+     final_list = main(
+          {
+               'okta_id': '00u1h5s6uhNe35ICm4x7',
+               'resource': 'comments',
+               'badge': 'topFan'
+     })
+     print(final_list)
