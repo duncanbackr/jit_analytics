@@ -1,6 +1,7 @@
 from datetime import datetime
 import Analytics, Filter, Formating, Query, Sort
 import time
+from flask import jsonify
 
 def main(request):
 
@@ -67,13 +68,13 @@ def main(request):
      }
      final_list.insert(0, times)
 
-     return final_list
+     return jsonify(final_list)
 
-if __name__ == '__main__':
-     final_list = main(
-          {
-               'okta_id': '00u1h5s6uhNe35ICm4x7',
-               'resource': 'comments',
-               'badge': 'topFan'
-     })
-     print(final_list[0])
+# if __name__ == '__main__':
+#      final_list = main(
+#           {
+#                'okta_id': '00u1h5s6uhNe35ICm4x7',
+#                'resource': 'comments',
+#                'badge': 'topFan'
+#      })
+#      print(final_list)
