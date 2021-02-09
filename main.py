@@ -15,7 +15,7 @@ def main(request):
 
 
      perPage = int(requestArgs.get('perPage', 100))
-     limit = perPage * 500
+     limit = requestArgs.get('sample', 5000)
      
      start =  time.process_time()
      """ Get data from db and backrest """
