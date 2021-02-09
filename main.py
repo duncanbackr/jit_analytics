@@ -22,25 +22,26 @@ def main(request):
      raw_data = Query.latest_comments(okta_id, limit)
      cut_off_data = Query.batch_data(okta_id)
      
-     end_pull =  time.process_time() - start
+     end_pull =  time.process_time()
+
 
      """ Add analytics calculations """
      scored_comments, replies = Analytics.add_score(raw_data, cut_off_data)
 
-     end_analytics =  time.process_time() - end_pull
+     end_analytics =  time.process_time()
 
      if requestArgs.get('resource') == 'fans':
           filtered_comments = Filter.from_list(
                scored_comments, 
                badge=requestArgs.get('badge', 'topFan'))
-          end_filter =  time.process_time() - end_analytics
+          end_filter =  time.process_time()
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param='badge_score')
-          end_sort =  time.process_time() - end_filter
+          end_sort =  time.process_time()
           final_list = Formating.fans(sorted_comments)
-          end_format = time.process_time() - end_sort
-          end_all =  time.process_time() - start
+          end_format = time.process_time()
+          end_all =  time.process_time()
 
      elif requestArgs.get('resource') == 'comments':
           filtered_comments = Filter.from_list(
@@ -49,22 +50,22 @@ def main(request):
                badge=requestArgs.get('badge'),
                archived=requestArgs.get('archived'),
                comment_class=requestArgs.get('comment_class'))
-          end_filter =  time.process_time() - end_analytics
+          end_filter =  time.process_time()
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param=requestArgs.get('order', 'balanced'))
-          end_sort =  time.process_time() - end_filter
+          end_sort =  time.process_time()
           final_list = Formating.comments(sorted_comments, replies)
-          end_format = time.process_time() - end_sort
-          end_all =  time.process_time() - start
+          end_format = time.process_time()
+          end_all =  time.process_time()
      
      times = {
-          'pull time (s)': end_pull,
-          'analytics time (s)': end_analytics,
-          'filter time (s)':end_filter,
-          'sort time (s)':end_sort,
-          'formating time (s)':end_format,
-          'full time (s)':end_all
+          'pull time (s)': end_pull - start,
+          'analytics time (s)': end_analytics - end_pull,
+          'filter time (s)':end_filter - end_analytics,
+          'sort time (s)':end_sort - end_filter,
+          'formating time (s)':end_format - end_sort,
+          'full time (s)':end_all - start
      }
      final_list.insert(0, times)
 
