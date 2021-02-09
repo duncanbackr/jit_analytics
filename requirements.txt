@@ -1,2 +1,2 @@
-psycopg2=2.8.6
-python-environ=0.4.54
+psycopg2==2.8.6
+python-environ==0.4.54

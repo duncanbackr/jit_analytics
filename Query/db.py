@@ -6,8 +6,8 @@ from Query.sql import full_query
 def latest_comments(okta_id, limit=5000):
 
     conn = psycopg2.connect(f"dbname= {config.DB_NAME} \
-                            user={config.DB_USER)} \
-                            host={config.DB_HOST)} \
+                            user={config.DB_USER} \
+                            host={config.DB_HOST} \
                             password={config.DB_PASSWORD}")
     cur = conn.cursor()
 
