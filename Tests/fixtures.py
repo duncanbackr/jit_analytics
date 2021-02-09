@@ -2,12 +2,12 @@ import os
 
 import pytest
 
-from flaskr import flaskr
-
+# from flaskr import flaskr
+import flask
 
 @pytest.fixture
 def client():
-    flaskr.app.config['TESTING'] = True
+    flask.app.config['TESTING'] = True
 
-    return client
+    return flask.app.test_client()
 

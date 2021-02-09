@@ -19,4 +19,4 @@ def latest_comments(okta_id, limit=5000):
 
     return rows
 
-#print(latest_comments(37, 100)[0:8])
+# print(latest_comments(37, 100)[0:8])
