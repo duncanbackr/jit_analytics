@@ -1,17 +1,14 @@
 import psycopg2
-import os
-from dotenv import load_dotenv, find_dotenv
+import config
 from Query.sql import full_query
 
-# TODO set this up so it looks for .env local and function envs in production
-load_dotenv(find_dotenv())
 
 def latest_comments(okta_id, limit=5000):
 
-    conn = psycopg2.connect(f"dbname= {os.environ.get('DBNAME')} \
-                            user={os.environ.get('DBUSER')} \
-                            host={os.environ.get('HOST')} \
-                            password={os.environ.get('PASSWORD')}")
+    conn = psycopg2.connect(f"dbname= {config.DB_NAME} \
+                            user={config.DB_USER)} \
+                            host={config.DB_HOST)} \
+                            password={config.DB_PASSWORD}")
     cur = conn.cursor()
 
     query_string = full_query(okta_id, limit)
