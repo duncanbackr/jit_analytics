@@ -4,7 +4,7 @@ import time
 
 def main(request):
 
-     requestArgs = request.args()
+     requestArgs = request.args
 
      if requestArgs.get('okta_id'):
           okta_id = requestArgs.get('okta_id')
@@ -66,7 +66,7 @@ def main(request):
           'full time (s)':end_all
      }
      final_list.insert(0, times)
-     
+
      return final_list
 
 if __name__ == '__main__':
