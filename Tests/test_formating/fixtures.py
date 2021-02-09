@@ -134,7 +134,6 @@ def formated_comments_1_with_reply():
         'replies': [
                 {'archive': False,
                 'authorDisplayName': 'L',
-                'badge': 'topFan',
                 'commentDatePosted': datetime.datetime(2020, 9, 1, 12, 54, 59),
                 'commentID': 46120,
                 'down_vote': None,
