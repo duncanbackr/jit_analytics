@@ -1,6 +1,4 @@
-from Tests.test_unpack.fixtures import unpack_row, raw_rows, unpacked_rows,new_fan, \
-    top_fan, trend_fan, re_engaged_fan, other_fan, growth, retention, badge, \
-        sort_none, sort_growth, filter_badge, filter_archived
+from Tests.test_unpack.fixtures import unpack_row, raw_rows, unpacked_rows
 import datetime
 from Analytics.preparedict import unpack
 

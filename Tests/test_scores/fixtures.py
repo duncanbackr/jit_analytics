@@ -61,10 +61,10 @@ def badge():
 
 ########sort############
 
-@pytest.fixture(scope='function')
-def sort_none():
-    proccessed_comments = [{'growth':2, 'balanced':3}, {'growth':6, 'balanced':8}, {'growth':5, 'balanced':4}]
-    return Sort.from_list(proccessed_comments, None)
+# @pytest.fixture(scope='function')
+# def sort_none():
+#     proccessed_comments = [{'growth':2, 'balanced':3}, {'growth':6, 'balanced':8}, {'growth':5, 'balanced':4}]
+#     return Sort.from_list(proccessed_comments, None)
 
 @pytest.fixture(scope='function')
 def sort_growth():
