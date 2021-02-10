@@ -1,6 +1,5 @@
 from datetime import datetime
 import Analytics, Filter, Formating, Query, Sort
-import time
 from flask import jsonify
 import config
 
@@ -11,11 +10,11 @@ def main(request):
      if requestArgs.get('okta_id'):
           okta_id = requestArgs.get('okta_id')
      else: 
-          # TODO raise error with frontend (ask Michael)
-          return {'error': 'must include an okta id'}
+          return jsonify({'error': 'must include an okta id'}), 404
 
 
      perPage = int(requestArgs.get('perPage', 100))
+     pageNum = int(requestArgs.get('pageNum', 0))
      limit = requestArgs.get('sample', 5000)
      
      """ Get data from db and backrest """
@@ -29,11 +28,12 @@ def main(request):
           filtered_comments = Filter.from_list(
                scored_comments, 
                badge=requestArgs.get('badge', 'topFan'))
-          end_filter =  time.process_time()
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param='badge_score')
-          final_list = Formating.fans(sorted_comments, perPage)
+
+          final_list = Formating.fans(sorted_comments, pageNum, perPage)
+
 
      elif requestArgs.get('resource') == 'comments':
           filtered_comments = Filter.from_list(
@@ -42,16 +42,15 @@ def main(request):
                badge=requestArgs.get('badge'),
                archived=requestArgs.get('archived'),
                comment_class=requestArgs.get('comment_class'))
-          end_filter =  time.process_time()
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param=requestArgs.get('order', 'balanced'))
-          final_list = Formating.comments(sorted_comments, replies, perPage)
-
+          final_list = Formating.comments(sorted_comments, replies, pageNum, perPage)
+          
      if config.ENV == 'Local':
           return final_list
 
-     return jsonify(final_list)
+     return jsonify(final_list), 200
 
 # if __name__ == '__main__':
 #      class Flask_Request:
