@@ -35,28 +35,28 @@ def test_archive_filter(mocker):
     response = main(flask_request)
     assert response == []
 
-# def test_video_filter(mocker):
-
-#     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'videoID':'159z160z161z'})
-#     mocker.patch('Query.latest_comments',
-#         return_value=raw_data_comments)
-#     response = main(flask_request)
-#     assert response ==  raw_data_filter_video   
-
 def test_video_filter(mocker):
-    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'videoId':'365z'})
-    mocker.patch('Query.latest_comments',
-        return_value=raw_data_comments)
-    response = main(flask_request)
-    assert response == {}
 
-# def test_comment_class_filter(mocker):
-#     flask_request = Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'engagement_class_id':2.0})
-#     mocker.patch('Query.latest_comments',
-#         return_value=raw_data_comments)
-#     response = main(flask_request)
-#     assert response == []
+    for videoid, video_title in [('365z', 'My Girl | The Temptations | Matt Mulholland Cover')]:
+        flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'videoId':videoid})
+        mocker.patch('Query.latest_comments',
+            return_value=raw_data_comments)
+        response = main(flask_request)
 
+        for row in response:
+            assert row['videoTitle'] == video_title
+
+def test_multiple_video_filter(mocker):
+    video_title_list = []
+    for videoid, video_title in [('365z', 'My Girl | The Temptations | Matt Mulholland Cover'), ('366z', 'And So It Goes by Billy Joel | Matt Mulholland & Chris Bill Cover')]:
+        flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'videoId':'365z366z'})
+        mocker.patch('Query.latest_comments',
+            return_value=raw_data_comments)
+        response = main(flask_request)
+        video_title_list = ['My Girl | The Temptations | Matt Mulholland Cover', 'And So It Goes by Billy Joel | Matt Mulholland & Chris Bill Cover']
+
+        for row in response:
+            assert row['videoTitle'] in video_title_list
 
 def test_all_badges_filter(mocker):
 
@@ -68,6 +68,14 @@ def test_all_badges_filter(mocker):
 
         for row in response:
             assert row['badge'] == badge
+
+# def test_comment_class_filter(mocker):
+#     flask_request = Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'engagement_class_id':2.0})
+#     mocker.patch('Query.latest_comments',
+#         return_value=raw_data_comments)
+#     response = main(flask_request)
+#     assert response == []
+
 
 # def test_sort(mocker):
 #     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'growth'})
