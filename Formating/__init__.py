@@ -60,6 +60,9 @@ def comments(comments, reply_dict, pageNum, perPage):
         if replies:
             formated_comment['replies'] = [rename(comment, reply_format)
                     for comment in replies]
+
+        else:
+            formated_comment['replies'] = []
     
         final_list.append(formated_comment)
 
