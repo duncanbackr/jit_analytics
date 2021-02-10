@@ -10,11 +10,11 @@ def main(request):
      if requestArgs.get('okta_id'):
           okta_id = requestArgs.get('okta_id')
      else: 
-          # TODO raise error with frontend (ask Michael)
-          return {'error': 'must include an okta id'}
+          return jsonify({'error': 'must include an okta id'}), 404
 
 
      perPage = int(requestArgs.get('perPage', 100))
+     pageNum = int(requestArgs.get('pageNum', 0))
      limit = requestArgs.get('sample', 5000)
      
      start =  time.process_time()
@@ -38,7 +38,7 @@ def main(request):
                filtered_comments, 
                param='badge_score')
           end_sort =  time.process_time()
-          final_list = Formating.fans(sorted_comments, perPage)
+          final_list = Formating.fans(sorted_comments, pageNum, perPage)
           end_format = time.process_time()
           end_all =  time.process_time()
 
@@ -54,7 +54,7 @@ def main(request):
                filtered_comments, 
                param=requestArgs.get('order', 'balanced'))
           end_sort =  time.process_time()
-          final_list = Formating.comments(sorted_comments, replies, perPage)
+          final_list = Formating.comments(sorted_comments, replies, pageNum, perPage)
           end_format = time.process_time()
           end_all =  time.process_time()
      

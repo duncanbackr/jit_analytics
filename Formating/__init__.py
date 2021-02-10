@@ -41,7 +41,7 @@ def rename(comment, new_format):
     return {key: comment[name]
             for key, name in new_format.items()}
 
-def comments(comments, reply_dict, perPage):
+def comments(comments, reply_dict, pageNum, perPage):
     ''' 
         Function that re-formats comments
         
@@ -51,7 +51,7 @@ def comments(comments, reply_dict, perPage):
         returns:
             List of processed comments
     '''
-    i = 0
+    comments = comments[pageNum*perPage:pageNum*perPage + perPage]
     final_list = []
     for comment in comments:
         formated_comment = rename(comment, comment_format)
@@ -63,14 +63,10 @@ def comments(comments, reply_dict, perPage):
     
         final_list.append(formated_comment)
 
-        i += 1
-        if i == perPage:
-            break
-
     return final_list
         
 
-def fans(fans, perPage):
+def fans(fans, pageNum, perPage):
     ''' 
         Function that re-formats fans keeping only first
         
@@ -79,17 +75,12 @@ def fans(fans, perPage):
         returns:
             List of fan objects
     '''
-    i = 0
+    fans = fans[pageNum*perPage:pageNum*perPage + perPage]
     fan_ids = set()
     final_list = []
     for fan in fans:
         if fan['youtube_fan_id'] not in fan_ids:
             fan_ids.add(fan['youtube_fan_id'])
-            final_list.append(rename(fan, fan_format))
-        
-        i += 1
-        if i == perPage:
-            break
-        
+            final_list.append(rename(fan, fan_format))      
     
     return final_list
