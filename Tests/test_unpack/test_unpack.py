@@ -18,7 +18,7 @@ def test_unpack(unpack_row):
         'total_comments': 6,
         'total_replies': 0,
         'up_vote': None,
-        'video_id': 211,
+        'videoId': 211,
         'video_title': 'Blank video number 1',
         'note': None,
         'youtube_fan_id': 5491,

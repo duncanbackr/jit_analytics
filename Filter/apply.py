@@ -7,7 +7,7 @@
 # 	)
 
 
-def from_list(comments, video_id=None, badge=None, archived=None, comment_class=None):
+def from_list(comments, videoId=None, badge=None, archived=None, comment_class=None):
 
     filter_list = []
 
@@ -19,9 +19,9 @@ def from_list(comments, video_id=None, badge=None, archived=None, comment_class=
             if comment['badge'] != badge:
                 continue
 
-        if video_id:
-            video_list = [int(video) for video in video_id.split('z')]
-            if comment['video_id'] not in video_list:
+        if videoId:
+            video_list = [int(video) for video in videoId.split('z') if video]
+            if comment['videoId'] not in video_list:
                 continue
 
         if archived:
@@ -29,7 +29,7 @@ def from_list(comments, video_id=None, badge=None, archived=None, comment_class=
                 continue
 
         if comment_class:
-            if comment_class_dict[comment['comment_class']] != comment_class:
+            if comment_class_dict[comment['engagement_class_id']] != comment_class:
                 continue
 
         filter_list.append(comment)

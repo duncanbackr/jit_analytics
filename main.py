@@ -39,7 +39,7 @@ def main(request):
      elif requestArgs.get('resource') == 'comments':
           filtered_comments = Filter.from_list(
                scored_comments, 
-               video_id=requestArgs.get('video_id'),
+               videoId=requestArgs.get('videoId'),
                badge=requestArgs.get('badge'),
                archived=requestArgs.get('archived'),
                comment_class=requestArgs.get('comment_class'))
@@ -55,10 +55,9 @@ def main(request):
      return jsonify(final_list)
 
 if __name__ == '__main__':
-     final_list = main(
-          {
-               'okta_id': '00u1h5s6uhNe35ICm4x7',
-               'resource': 'comments',
-               'badge': 'topFan'
-     })
+     class Flask_Request:
+          def __init__(self, request_dict):
+               self.args = request_dict 
+
+     final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'videoId':'365z'}))
      print(final_list)
