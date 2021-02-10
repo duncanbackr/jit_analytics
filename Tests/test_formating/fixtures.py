@@ -20,7 +20,7 @@ def proccessed_comments_1():
             'total_replies': 0,
             'note': None,
             'up_vote': None,
-            'video_id': 447,
+            'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
             'youtube_fan_id': 29614,
             'badge': 'topFan',
@@ -42,7 +42,7 @@ def proccessed_comments_1():
             'total_replies': 1,
             'note': None,
             'up_vote': None,
-            'video_id': 447,
+            'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
             'youtube_fan_id': 16391,
             'badge': 'newFan'
@@ -98,7 +98,7 @@ def processed_reply_1():
                     'total_comments': None,
                     'total_replies': None,
                     'up_vote': None,
-                    'video_id': 447,
+                    'videoId': 447,
                     'video_title': 'Why Monki Flip Is Idiotic GENIUS',
                     'youtube_fan_id': 29664,
                     'badge': 'topFan'

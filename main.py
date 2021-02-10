@@ -1,6 +1,7 @@
 from datetime import datetime
 import Analytics, Filter, Formating, Query, Sort
 from flask import jsonify
+import config
 
 def main(request):
 
@@ -30,12 +31,14 @@ def main(request):
           sorted_comments = Sort.from_list(
                filtered_comments, 
                param='badge_score')
+
           final_list = Formating.fans(sorted_comments, pageNum, perPage)
+
 
      elif requestArgs.get('resource') == 'comments':
           filtered_comments = Filter.from_list(
                scored_comments, 
-               video_id=requestArgs.get('video_id'),
+               videoId=requestArgs.get('videoId'),
                badge=requestArgs.get('badge'),
                archived=requestArgs.get('archived'),
                comment_class=requestArgs.get('comment_class'))
@@ -43,15 +46,16 @@ def main(request):
                filtered_comments, 
                param=requestArgs.get('order', 'balanced'))
           final_list = Formating.comments(sorted_comments, replies, pageNum, perPage)
-
+          
+     if config.ENV == 'Local':
+          return final_list
 
      return jsonify(final_list), 200
 
 # if __name__ == '__main__':
-#      final_list = main(
-#           {
-#                'okta_id': '00u1h5s6uhNe35ICm4x7',
-#                'resource': 'comments',
-#                'badge': 'topFan'
-#      })
-#      print(final_list)
+#      class Flask_Request:
+#           def __init__(self, request_dict):
+#                self.args = request_dict 
+
+#      final_list = main(Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'comment_class':'Suggestion'}))
+#      print(final_list[0:5])

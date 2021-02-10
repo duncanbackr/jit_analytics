@@ -47,7 +47,7 @@ sql_columns = [
         'required': True
     },
     {
-        'name':'video_id', 
+        'name':'videoId', 
         'type':int, 
         'required': True
     },
