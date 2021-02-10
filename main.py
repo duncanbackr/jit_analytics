@@ -58,5 +58,5 @@ def main(request):
 #           def __init__(self, request_dict):
 #                self.args = request_dict 
 
-#      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'engagement_class_id':'Question'}))
-#      print(final_list[0:10])
+#      final_list = main(Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'comment_class':'Suggestion'}))
+#      print(final_list[0:5])

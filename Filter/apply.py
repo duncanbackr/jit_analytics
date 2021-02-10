@@ -29,7 +29,8 @@ def from_list(comments, videoId=None, badge=None, archived=None, comment_class=N
                 continue
 
         if comment_class:
-            if comment_class_dict[comment['engagement_class_id']] != comment_class:
+            if (comment['engagement_class_id'] is None) or \
+                        (comment_class_dict[comment['engagement_class_id']] != comment_class):
                 continue
 
         filter_list.append(comment)
