@@ -18,7 +18,6 @@ def main(request):
      perPage = int(requestArgs.get('perPage', 100))
      limit = requestArgs.get('sample', 5000)
      
-     start =  time.process_time()
      """ Get data from db and backrest """
      raw_data = Query.latest_comments(okta_id, limit)
      cut_off_data = Query.batch_data(okta_id)
@@ -54,10 +53,10 @@ def main(request):
 
      return jsonify(final_list)
 
-if __name__ == '__main__':
-     class Flask_Request:
-          def __init__(self, request_dict):
-               self.args = request_dict 
+# if __name__ == '__main__':
+#      class Flask_Request:
+#           def __init__(self, request_dict):
+#                self.args = request_dict 
 
-     final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'videoId':'365z'}))
-     print(final_list)
+#      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'engagement_class_id':'Question'}))
+#      print(final_list[0:10])

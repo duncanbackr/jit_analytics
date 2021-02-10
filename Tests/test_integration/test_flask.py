@@ -5,6 +5,7 @@ from Tests.test_integration.fixtures import Flask_Request
 from Tests.test_integration.raw_data_comments import raw_data_comments
 from Tests.test_integration.raw_data_fans import raw_data_f
 from Tests.test_integration.raw_data_filter import raw_data_filter_badge
+from Tests.test_integration.raw_data_sort import raw_data_growth, raw_data_balance, raw_data_retain, raw_data_badge
 
 
 def test_home():
@@ -69,6 +70,17 @@ def test_all_badges_filter(mocker):
         for row in response:
             assert row['badge'] == badge
 
+def test_all_badges_fans_filter(mocker):
+
+    for badge in ['newFan', 'trendingFan', 'topFan', 'reEngageFan']:
+        flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans', 'badge':badge})
+        mocker.patch('Query.latest_comments',
+            return_value=raw_data_comments)
+        response = main(flask_request)
+
+        for row in response:
+            assert row['badge'] == badge
+
 ####assert for comments correctly classified in a list###
 
 # def test_comment_class_filter(mocker):
@@ -78,10 +90,34 @@ def test_all_badges_filter(mocker):
 #     response = main(flask_request)
     #assert response == {}
 
-
-def test_sort(mocker):
+def test_sort_timestamp(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'timestamp'})
     mocker.patch('Query.latest_comments',
         return_value=raw_data_comments)
     response = main(flask_request)
     assert response[1]['commentDatePosted'] > response[2]['commentDatePosted'] 
+
+def test_sort_growth(mocker):
+    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'growth'})
+    response = main(flask_request)
+    assert response[0:1] == raw_data_growth[0:1]
+    assert response[5:6] == raw_data_growth[5:6]
+
+def test_sort_balanced(mocker):
+    flask_request = Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'order':'balanced'})
+    response = main(flask_request)
+    assert response[0:1] == raw_data_balance[0:1]
+    assert response[5:6] == raw_data_balance[5:6]
+
+def test_sort_retain(mocker):
+    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'retention'})
+    response = main(flask_request)
+    assert response[0:1] == raw_data_retain[0:1]
+    assert response[5:6] == raw_data_retain[5:6]
+
+def test_sort_badge(mocker):
+    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'badge_score'})
+    response = main(flask_request)
+    assert response[0:1] == raw_data_badge[0:1]
+    assert response[5:6] == raw_data_badge[5:6]
+    
