@@ -69,17 +69,19 @@ def test_all_badges_filter(mocker):
         for row in response:
             assert row['badge'] == badge
 
+####assert for comments correctly classified in a list###
+
 # def test_comment_class_filter(mocker):
 #     flask_request = Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'engagement_class_id':2.0})
 #     mocker.patch('Query.latest_comments',
 #         return_value=raw_data_comments)
 #     response = main(flask_request)
-#     assert response == []
+    #assert response == {}
 
 
-# def test_sort(mocker):
-#     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'growth'})
-#     mocker.patch('Query.latest_comments',
-#         return_value=raw_data_comments)
-#     response = main(flask_request)
-#     assert response == {}
+def test_sort(mocker):
+    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'timestamp'})
+    mocker.patch('Query.latest_comments',
+        return_value=raw_data_comments)
+    response = main(flask_request)
+    assert response[1]['commentDatePosted'] > response[2]['commentDatePosted'] 
