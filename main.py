@@ -24,7 +24,7 @@ def main(request):
     else:
         if config.ENV == 'Local':
               return {'error': 'must include an okta id'}
-        return jsonify({'error': 'must include an okta id'}), 404
+        return jsonify({'error': 'must include an okta id'}), 400
 
 
     perPage = int(requestArgs.get('perPage', 100))
