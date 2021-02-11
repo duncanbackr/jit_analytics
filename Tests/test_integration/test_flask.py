@@ -17,15 +17,14 @@ def test_home():
 def test_fans(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'})
 
-    mocker.patch('Analytics.get_current_datetime',
-        return_value=datetime.datetime(2023,2,9))
+    # mocker.patch('Analytics.get_current_datetime',
+    #     return_value=datetime.datetime(2023,2,9))
 
-    mocker.patch('Query.latest_comments',
-        return_value=raw_data_comments)
+    mocker.patch('Query.db.latest_comments',
+        return_value=raw_data_f)
 
     response = main(flask_request)
     assert response == raw_data_f
-    # assert response == {}
 
 def test_topfan_filter(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'badge':'topFan'})
