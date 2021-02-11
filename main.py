@@ -1,6 +1,7 @@
 from datetime import datetime
 import Analytics, Filter, Formating, Query, Sort
 from flask import jsonify
+import math
 import config
 
 def main(request):
@@ -27,8 +28,8 @@ def main(request):
         return jsonify({'error': 'must include an okta id'}), 400
 
 
+    page = int(requestArgs.get('page', 0))
     perPage = int(requestArgs.get('perPage', 100))
-    pageNum = int(requestArgs.get('pageNum', 0))
     limit = requestArgs.get('sample', 5000)
     
     """ Get data from db and backrest """
@@ -49,7 +50,8 @@ def main(request):
         sorted_comments = Sort.from_list(
               filtered_comments, 
               param='badge_score')
-        final_list = Formating.fans(sorted_comments, pageNum, perPage)
+        total_length = len(sorted_comments)
+        final_list = Formating.fans(sorted_comments, page, perPage)
 
 
     elif requestArgs.get('resource') == 'comments':
@@ -62,7 +64,8 @@ def main(request):
         sorted_comments = Sort.from_list(
               filtered_comments, 
               param=requestArgs.get('order', 'balanced'))
-        final_list = Formating.comments(sorted_comments, replies, pageNum, perPage)
+        total_length = len(sorted_comments)
+        final_list = Formating.comments(sorted_comments, replies, page, perPage)
         
     if config.ENV == 'Local':
         return final_list
@@ -72,20 +75,24 @@ def main(request):
         'Access-Control-Allow-Origin': '*'
     }
 
-    return (jsonify(final_list), 200, headers)
+    return (jsonify({'success': True,
+                    'data': final_list,
+                    'page': page,
+                    'totalPages': math.ceil(total_length/perPage)
+                    }), 200, headers)
 
-if __name__ == '__main__':
-     class Flask_Request:
-          def __init__(self, request_dict):
-               self.args = request_dict
-               self.method = 'Not OPTIONS'
+# if __name__ == '__main__':
+#      class Flask_Request:
+#           def __init__(self, request_dict):
+#                self.args = request_dict
+#                self.method = 'Not OPTIONS'
 
-     final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'}))
-     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-     # max_date = datetime(2018,1,1)
-     # for item in raw_data:
-     #      date = item[5]
-     #      if date > max_date and item[1] is None:
-     #           max_date = date
+#      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'}))
+#      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+#      # max_date = datetime(2018,1,1)
+#      # for item in raw_data:
+#      #      date = item[5]
+#      #      if date > max_date and item[1] is None:
+#      #           max_date = date
      
-     print(final_list)
+#      print(final_list)
