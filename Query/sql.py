@@ -77,7 +77,7 @@ def full_query(okta_id, limit=5000):
                     parent_youtube_comment_id is NULL 
                 AND
                     by_creator is false
-                ORDER BY timestamp
+                ORDER BY timestamp desc
                 LIMIT {limit}
 
             ),
@@ -178,7 +178,7 @@ def full_query(okta_id, limit=5000):
                     top_fan_comments.youtube_fan_id as youtube_fan_id, 
                     COUNT(top_fan_comments.comment_id) as total_comments, 
                     COUNT(top_fan_comments.parent_youtube_comment_id) as total_replies, 
-                    COUNT(responses.by_creator) as responses, 
+                    COUNT(responses.creator_response) as responses, 
                     MAX(second_comment.sec_timestamp) as sec_comment
                 FROM 
                     top_fan_comments
@@ -196,13 +196,12 @@ def full_query(okta_id, limit=5000):
                 LEFT JOIN -- Creator Responses
                     (
                         SELECT
-                            parent_youtube_comment_id,
-                            by_creator
+                            distinct parent_youtube_comment_id as creator_response
                         FROM all_comments
                         WHERE by_creator = TRUE
                     )
                     responses
-                ON top_fan_comments.comment_id = responses.parent_youtube_comment_id
+                ON top_fan_comments.comment_id = responses.creator_response
                 GROUP BY top_fan_comments.youtube_fan_id
             )
             fan_aggregations

@@ -12,6 +12,7 @@ def main(request):
      else:
           if config.ENV == 'Local':
                return {'error': 'must include an okta id'}
+
           return jsonify({'error': 'must include an okta id'}), 404
 
 
@@ -24,7 +25,7 @@ def main(request):
      cut_off_data = Query.batch_data(okta_id)
      
      """ Add analytics calculations """
-     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data)
+     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 
      if requestArgs.get('resource') == 'fans':
           filtered_comments = Filter.from_list(
@@ -54,10 +55,17 @@ def main(request):
 
      return jsonify(final_list), 200
 
-# if __name__ == '__main__':
-#      class Flask_Request:
-#           def __init__(self, request_dict):
-#                self.args = request_dict 
+if __name__ == '__main__':
+     class Flask_Request:
+          def __init__(self, request_dict):
+               self.args = request_dict 
 
-#      final_list = main(Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'comment_class':'Suggestion'}))
-#      print(final_list[0:5])
+     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6','resource':'comments', 'order':'timestamp'}))
+     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+     # max_date = datetime(2018,1,1)
+     # for item in raw_data:
+     #      date = item[5]
+     #      if date > max_date and item[1] is None:
+     #           max_date = date
+     
+     print(final_list[0])

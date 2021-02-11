@@ -4,9 +4,11 @@ def unpack(row):
     '''converts row to dictionary'''
 
     comment = {}
-    for i in range(len(row)):
+    for i in range(18):
         key = sql_columns[i]
         value = row[i]
+        
+        comment[key['name']] = None
 
         if type(value) is key['type']:
             comment[key['name']] = value
@@ -14,7 +16,9 @@ def unpack(row):
         elif key['required']:
             return None
 
-        else:
-            comment[key['name']] = None
-
+        elif row[1] is None:
+            # Check if its a root comment
+            if key['root_required']:
+                return None
+    
     return comment
