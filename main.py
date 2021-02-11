@@ -25,7 +25,7 @@ def main(request):
     else:
         if config.ENV == 'Local':
               return {'error': 'must include an okta id'}
-        return jsonify({'error': 'must include an okta id'}), 400
+        return (jsonify({'error': 'must include an okta id'}), 400)
 
 
     page = int(requestArgs.get('page', 0))
@@ -36,7 +36,7 @@ def main(request):
     raw_data = Query.latest_comments(okta_id, limit)
     batch_response = Query.batch_data(okta_id)
     if batch_response.get('error'):
-        return jsonify(batch_response), 500
+        return (jsonify(batch_response), 500)
     else:
         cut_off_data = batch_response['data']
     
@@ -59,7 +59,7 @@ def main(request):
               scored_comments, 
               videoId=requestArgs.get('videoId'),
               badge=requestArgs.get('badge'),
-              archived=requestArgs.get('archived'),
+              archived=requestArgs.get('archive'),
               comment_class=requestArgs.get('comment_class'))
         sorted_comments = Sort.from_list(
               filtered_comments, 
