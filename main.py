@@ -9,7 +9,9 @@ def main(request):
 
      if requestArgs.get('okta_id'):
           okta_id = requestArgs.get('okta_id')
-     else: 
+     else:
+          if config.ENV == 'Local':
+               return {'error': 'must include an okta id'}
           return jsonify({'error': 'must include an okta id'}), 404
 
 
