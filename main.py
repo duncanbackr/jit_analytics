@@ -24,8 +24,9 @@ def main(request):
      raw_data = Query.latest_comments(okta_id, limit)
      cut_off_data = Query.batch_data(okta_id)
      
+     time_now = Analytics.datetime_now()
      """ Add analytics calculations """
-     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
+     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, time_now)
 
      if requestArgs.get('resource') == 'fans':
           filtered_comments = Filter.from_list(
@@ -68,4 +69,4 @@ if __name__ == '__main__':
      #      if date > max_date and item[1] is None:
      #           max_date = date
      
-     print(final_list[0])
+     print(final_list[0:10])

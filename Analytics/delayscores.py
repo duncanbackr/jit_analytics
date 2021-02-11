@@ -1,8 +1,5 @@
 from datetime import datetime
 
-def get_current_datetime():
-    return datetime.utcnow()
-
 def create_delay_scores(last_comment, sec_comment, time_now):
     '''subtracts dates in dataframe from todays date and converts 
     to # of days with logic for if the value is a nan'''
