@@ -1,5 +1,5 @@
 import datetime
-raw_data_filter_badge = [
+mock_filter_badge = [
   {'archive': False,
    'authorDisplayName': 'BatmanShampoo',
    'badge': 'topFan',

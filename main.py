@@ -23,7 +23,6 @@ def main(request):
      """ Get data from db and backrest """
      raw_data = Query.latest_comments(okta_id, limit)
      cut_off_data = Query.batch_data(okta_id)
-     
      time_now = Analytics.datetime_now()
      """ Add analytics calculations """
      scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, time_now)
@@ -61,12 +60,12 @@ if __name__ == '__main__':
           def __init__(self, request_dict):
                self.args = request_dict 
 
-     final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'}))
-     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+     #final_list = main(Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments'}))
+     raw_data = Query.latest_comments('00u1mjatc3FRbFhUr4x7', 300)
      # max_date = datetime(2018,1,1)
      # for item in raw_data:
      #      date = item[5]
      #      if date > max_date and item[1] is None:
      #           max_date = date
      
-     print(final_list)
+     print(raw_data[0:300])
