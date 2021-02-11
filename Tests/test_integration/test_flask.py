@@ -17,7 +17,7 @@ def test_home():
 def test_fans(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'})
 
-    # mocker.patch('Analytics.get_current_datetime',
+    # mocker.patch('Analytics.datetime_now',
     #     return_value=datetime.datetime(2023,2,9))
 
     mocker.patch('Query.db.latest_comments',
