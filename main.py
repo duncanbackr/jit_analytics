@@ -33,10 +33,14 @@ def main(request):
     
     """ Get data from db and backrest """
     raw_data = Query.latest_comments(okta_id, limit)
-    cut_off_data = Query.batch_data(okta_id)
+    batch_response = Query.batch_data(okta_id)
+    if batch_response.get('error'):
+        return jsonify(batch_response), 500
+    else:
+        cut_off_data = batch_response['data']
     
     """ Add analytics calculations """
-    scored_comments, replies = Analytics.add_score(raw_data, cut_off_data)
+    scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 
     if requestArgs.get('resource') == 'fans':
         filtered_comments = Filter.from_list(
@@ -45,7 +49,6 @@ def main(request):
         sorted_comments = Sort.from_list(
               filtered_comments, 
               param='badge_score')
-
         final_list = Formating.fans(sorted_comments, pageNum, perPage)
 
 
@@ -74,7 +77,8 @@ def main(request):
 if __name__ == '__main__':
      class Flask_Request:
           def __init__(self, request_dict):
-               self.args = request_dict 
+               self.args = request_dict
+               self.method = 'Not OPTIONS'
 
      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'}))
      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
