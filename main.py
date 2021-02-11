@@ -59,7 +59,7 @@ def main(request):
               scored_comments, 
               videoId=requestArgs.get('videoId'),
               badge=requestArgs.get('badge'),
-              archived=requestArgs.get('archive'),
+              archived=bool(requestArgs.get('archive')),
               comment_class=requestArgs.get('comment_class'))
         sorted_comments = Sort.from_list(
               filtered_comments, 
