@@ -55,11 +55,12 @@ def main(request):
 
 
     elif requestArgs.get('resource') == 'comments':
+        # return bool(requestArgs.get('archive'))
         filtered_comments = Filter.from_list(
               scored_comments, 
               videoId=requestArgs.get('videoId'),
               badge=requestArgs.get('badge'),
-              archived=bool(requestArgs.get('archive')),
+              archived=requestArgs.get('archive') == 'true',
               comment_class=requestArgs.get('comment_class'))
         sorted_comments = Sort.from_list(
               filtered_comments, 
@@ -87,7 +88,7 @@ def main(request):
 #                self.args = request_dict
 #                self.method = 'Not OPTIONS'
 
-#      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'}))
+#      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments'}))
 #      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
 #      # max_date = datetime(2018,1,1)
 #      # for item in raw_data:
@@ -95,4 +96,4 @@ def main(request):
 #      #      if date > max_date and item[1] is None:
 #      #           max_date = date
      
-#      print(final_list)
+#      print(final_list[0])

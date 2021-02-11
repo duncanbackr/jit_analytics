@@ -24,7 +24,7 @@ def from_list(comments, videoId=None, badge=None, archived=None, comment_class=N
             if comment['videoId'] not in video_list:
                 continue
 
-        if archived:
+        if archived != None:
             if comment['archived'] != archived:
                 continue
 
