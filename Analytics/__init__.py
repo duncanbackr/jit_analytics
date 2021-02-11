@@ -1,3 +1,4 @@
+from datetime import datetime
 from Analytics.addbadge import add_badge
 from Analytics.badgescore import  add_badge_score
 from Analytics.delayscores import create_delay_scores
@@ -7,8 +8,10 @@ from Analytics.retentionscore import add_retention
 from Analytics.scale import delay1_dict, delay2_dict, delay3_dict, comments_dict, \
     reply_dict, response_dict, bin_scale
   
+def datetime_now():
+    return datetime.utcnow()
 
-def add_score(all_rows, cut_off_data):
+def add_score(all_rows, cut_off_data, time_now):
     #top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
     top_fan_cutoff = 2
     replies = {}
@@ -19,11 +22,11 @@ def add_score(all_rows, cut_off_data):
         if comment is None:
             continue
 
-        y = comment['parent_youtube_comment_id']
+        parent_comment = comment['parent_youtube_comment_id']
 
-        if y is None:
+        if parent_comment is None:
 
-            delays = create_delay_scores(comment['timestamp'], comment['sec_comment'])
+            delays = create_delay_scores(comment['timestamp'], comment['sec_comment'], time_now)
 
             comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, delays)
 
@@ -50,9 +53,9 @@ def add_score(all_rows, cut_off_data):
             proccessed_comments.append(comment)
 
         else:
-            if y in replies:
-                replies[y].append(comment)
+            if parent_comment in replies:
+                replies[parent_comment].append(comment)
             else:
-                replies[y] = [comment]
+                replies[parent_comment] = [comment]
             
     return  (proccessed_comments, replies)

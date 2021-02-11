@@ -1,4 +1,5 @@
 import pytest
+import datetime
 import Analytics, Filter, Formating, Query, Sort
 from main import main
 from Tests.test_integration.fixtures import Flask_Request
@@ -15,8 +16,13 @@ def test_home():
 
 def test_fans(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'fans'})
+
+    # mocker.patch('Analytics.datetime_now',
+    #     return_value=datetime.datetime(2023,2,9))
+
     mocker.patch('Query.db.latest_comments',
-        return_value=raw_data_comments)
+        return_value=raw_data_f)
+
     response = main(flask_request)
     assert response == raw_data_f
 
