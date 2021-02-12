@@ -78,8 +78,8 @@ def main(request):
     headers = {
         'Access-Control-Allow-Origin': '*'
     }
-    total_end = time.time()
-    final_list.insert(0, {'batch_call:': end-start, 'total_time': total_end-total_start})
+    # total_end = time.time()
+    # final_list.insert(0, {'batch_call:': end-start, 'total_time': total_end-total_start})
 
     return (jsonify({'success': True,
                     'data': final_list,
