@@ -14,7 +14,7 @@ def batch_data(okta_id: str, backrest_url=config.BACKREST_URL):
     url = f'{backrest_url}/youtube/creatoranalytics/'
 
     response = requests.get(url,
-                params={'creator__okta_platform_account_id': '00u1qjieo8vM0Ifrz4x7',
+                params={'creator__okta_platform_account_id': okta_id,
                         'limit': 1})
 
     if response.status_code == 200 and response.json()['results']:
