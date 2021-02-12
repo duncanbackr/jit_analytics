@@ -114,12 +114,7 @@ def test_question_filter(mocker):
          return_value=raw_data_comments2)
     response = main(flask_request)
 
-    mocker_response = []
-    for i in range(len(response)):
-        if response[i]['commentDatePosted'] < datetime.datetime(2021, 2, 11, 14, 13, 45):
-            mocker_response.append(response[i])
-
-    assert mocker_response[0:2] == mock_question[0:2]
+    assert response[0:2] == mock_question[0:2]
 
 def test_sort_timestamp(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'timestamp'})
@@ -153,15 +148,14 @@ def test_sort_retain(mocker):
     assert response[5:6] == mock_retain[5:6]
 
 def test_sort_badge(mocker):
-    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'badge_score'})
+    flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'badge_score', 'perPage':10})
     mocker.patch('Query.latest_comments',
         return_value=raw_data_comments)
+
+    mocker.patch('Analytics.datetime_now',
+        return_value=datetime.datetime(2021, 2, 11, 14, 13, 45))
+        
     response = main(flask_request)
 
-    mocker_response = []
-    for i in range(len(response)):
-        if response[i]['commentDatePosted'] < datetime.datetime(2021, 2, 11, 14, 13, 45):
-            mocker_response.append(response[i])
-
-    assert mocker_response[0:1] == mock_badge[0:1]
-    assert mocker_response[5:6] == mock_badge[5:6]
+    assert response == mock_badge
+    #assert response[5:6] == mock_badge[5:6]
