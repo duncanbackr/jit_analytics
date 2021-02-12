@@ -11,7 +11,7 @@ def batch_data(okta_id: str, backrest_url=config.BACKREST_URL):
     if config.ENV == 'Local':
         return {'data': [4, 2]}
 
-    url = f'{backrest_url.geturl()}/youtube/creatoranalytics/'
+    url = f'{backrest_url.geturl()}youtube/creatoranalytics/'
     
     metadata_server_token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
 
