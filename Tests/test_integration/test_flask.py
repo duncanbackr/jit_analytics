@@ -24,8 +24,7 @@ def test_fans(mocker):
         return_value=raw_data_comments)
 
     response = main(flask_request)
-    print(response)
-    #assert response == mock_fans
+    assert response == mock_fans
 
 def test_topfan_filter(mocker):
     flask_request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'badge':'topFan'})
