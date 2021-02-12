@@ -3,6 +3,7 @@ import Analytics, Filter, Formating, Query, Sort
 from flask import jsonify
 import math
 import config
+import time
 
 def main(request):
 
@@ -34,12 +35,13 @@ def main(request):
     
     """ Get data from db and backrest """
     raw_data = Query.latest_comments(okta_id, limit)
+    start = time.time()
     batch_response = Query.batch_data(okta_id)
     if batch_response.get('error'):
         return (jsonify(batch_response), 500)
     else:
         cut_off_data = batch_response['data']
-    
+    end = time.time()
     """ Add analytics calculations """
     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 
@@ -75,6 +77,7 @@ def main(request):
     headers = {
         'Access-Control-Allow-Origin': '*'
     }
+    final_list.insert(0, {'batch_call:': end-start})
 
     return (jsonify({'success': True,
                     'data': final_list,
