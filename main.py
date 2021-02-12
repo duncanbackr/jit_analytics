@@ -6,6 +6,7 @@ import config
 import time
 
 def main(request):
+    total_start = time.time()
 
     ## Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
@@ -77,7 +78,8 @@ def main(request):
     headers = {
         'Access-Control-Allow-Origin': '*'
     }
-    final_list.insert(0, {'batch_call:': end-start})
+    total_end = time.time()
+    final_list.insert(0, {'batch_call:': end-start, 'total_time': total_end-total_start})
 
     return (jsonify({'success': True,
                     'data': final_list,
