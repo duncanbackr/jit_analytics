@@ -10,7 +10,7 @@ import Sort
 from Filter import from_list
 import datetime
 
-time_now = Analytics.datetime_now()
+time_now = datetime.datetime(2021, 2, 12, 18, 32, 34)
 
 @pytest.fixture(scope='function')
 def new_fan():
