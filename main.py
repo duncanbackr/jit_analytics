@@ -3,10 +3,10 @@ import Analytics, Filter, Formating, Query, Sort
 from flask import jsonify
 import math
 import config
-import time
+#import time
 
 def main(request):
-    total_start = time.time()
+    #total_start = time.time()
 
     ## Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
@@ -29,20 +29,19 @@ def main(request):
               return {'error': 'must include an okta id'}
         return (jsonify({'error': 'must include an okta id'}), 400)
 
-
     page = int(requestArgs.get('page', 0))
     perPage = int(requestArgs.get('perPage', 100))
     limit = requestArgs.get('sample', 5000)
     
     """ Get data from db and backrest """
     raw_data = Query.latest_comments(okta_id, limit)
-    start = time.time()
+    #start = time.time()
     batch_response = Query.batch_data(okta_id)
     if batch_response.get('error'):
         return (jsonify(batch_response), 500)
     else:
         cut_off_data = batch_response['data']
-    end = time.time()
+    #end = time.time()
     """ Add analytics calculations """
     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 
@@ -92,7 +91,6 @@ def main(request):
 #           def __init__(self, request_dict):
 #                self.args = request_dict
 #                self.method = 'Not OPTIONS'
-
 #      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments'}))
 #      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
 #      # max_date = datetime(2018,1,1)
