@@ -57,9 +57,7 @@ def main(request):
         sorted_comments = Sort.from_list(
               filtered_comments, 
               param='badge_score')
-        total_length = len(sorted_comments)
-        final_list = Formating.fans(sorted_comments, page, perPage)
-
+        final_list, total_length = Formating.fans(sorted_comments, page, perPage)
 
     elif requestArgs.get('resource') == 'comments':
         # return bool(requestArgs.get('archive'))
@@ -92,16 +90,16 @@ def main(request):
                     }), 200, headers)
 
 # if __name__ == '__main__':
-#      class Flask_Request:
-#           def __init__(self, request_dict):
-#                self.args = request_dict
-#                self.method = 'Not OPTIONS'
-#      final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'fans', 'badge':'topFan'}))
-#      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-#      # max_date = datetime(2018,1,1)
-#      # for item in raw_data:
-#      #      date = item[5]
-#      #      if date > max_date and item[1] is None:
-#      #           max_date = date
+#       class Flask_Request:
+#            def __init__(self, request_dict):
+#                 self.args = request_dict
+#                 self.method = 'Not OPTIONS'
+#       final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'fans', 'badge':'trendingFan'}))
+# #      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+# #      # max_date = datetime(2018,1,1)
+# #      # for item in raw_data:
+# #      #      date = item[5]
+# #      #      if date > max_date and item[1] is None:
+# #      #           max_date = date
      
-#      print(len(final_list))
+#       print(len(final_list))

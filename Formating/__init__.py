@@ -83,7 +83,9 @@ def fans(fans, pageNum, perPage):
     for fan in fans:
         if fan['youtube_fan_id'] not in fan_ids:
             fan_ids.add(fan['youtube_fan_id'])
-            final_list.append(rename(fan, fan_format))      
-    
+            final_list.append(rename(fan, fan_format))  
+                
+    total_length = len(final_list)
     final_list = final_list[pageNum*perPage:pageNum*perPage + perPage]
-    return final_list
+
+    return final_list, total_length
