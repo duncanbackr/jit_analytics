@@ -12,7 +12,7 @@ def datetime_now():
     return datetime.utcnow()
 
 def add_score(all_rows, cut_off_data, time_now):
-    #top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
+    top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
     #top_fan_cutoff = 2
     replies = {}
     proccessed_comments = []
