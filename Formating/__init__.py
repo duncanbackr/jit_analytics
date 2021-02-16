@@ -78,7 +78,6 @@ def fans(fans, pageNum, perPage):
         returns:
             List of fan objects
     '''
-    fans = fans[pageNum*perPage:pageNum*perPage + perPage]
     fan_ids = set()
     final_list = []
     for fan in fans:
@@ -86,4 +85,5 @@ def fans(fans, pageNum, perPage):
             fan_ids.add(fan['youtube_fan_id'])
             final_list.append(rename(fan, fan_format))      
     
+    final_list = final_list[pageNum*perPage:pageNum*perPage + perPage]
     return final_list

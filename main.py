@@ -91,17 +91,17 @@ def main(request):
                     'totalPages': math.ceil(total_length/perPage)
                     }), 200, headers)
 
-if __name__ == '__main__':
-     class Flask_Request:
-          def __init__(self, request_dict):
-               self.args = request_dict
-               self.method = 'Not OPTIONS'
-     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'videoId':'806z770z', 'perPage':10}))
-     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-     # max_date = datetime(2018,1,1)
-     # for item in raw_data:
-     #      date = item[5]
-     #      if date > max_date and item[1] is None:
-     #           max_date = date
+# if __name__ == '__main__':
+#      class Flask_Request:
+#           def __init__(self, request_dict):
+#                self.args = request_dict
+#                self.method = 'Not OPTIONS'
+#      final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'fans', 'badge':'topFan'}))
+#      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+#      # max_date = datetime(2018,1,1)
+#      # for item in raw_data:
+#      #      date = item[5]
+#      #      if date > max_date and item[1] is None:
+#      #           max_date = date
      
-     print(final_list[0])
+#      print(len(final_list))
