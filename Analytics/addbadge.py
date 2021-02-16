@@ -16,3 +16,5 @@ def add_badge(total_comments, top_fan_cutoff, delays):
         return 'trendingFan'
     else:
         return None
+
+    
