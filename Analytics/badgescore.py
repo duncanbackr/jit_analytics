@@ -9,7 +9,7 @@ def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, dela
     delay1, delay2, delay3 = delays
 
     if badge == 'newFan':
-        return 1/bin_scale(delay1, delay1_dict)
+        return 1/delay1
 
     elif badge == 'trendingFan':
         return bin_scale(total_comments/top_fan_cutoff, comments_dict) - 1/bin_scale(delay1, delay1_dict)
@@ -17,9 +17,5 @@ def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, dela
     elif badge == 'reEngageFan':
         return  bin_scale(delay2, delay2_dict) - 1/bin_scale(delay1, delay1_dict)
 
-    elif badge == 'topFan':
-        return bin_scale(total_comments/top_fan_cutoff, comments_dict)
-
     else:
-        return (bin_scale(total_comments/top_fan_cutoff, comments_dict) + bin_scale(delay2, delay2_dict) - 
-                            1/bin_scale(delay1, delay1_dict))
+        return total_comments/top_fan_cutoff

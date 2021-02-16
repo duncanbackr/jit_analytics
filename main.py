@@ -86,17 +86,20 @@ def main(request):
                     'totalPages': math.ceil(total_length/perPage)
                     }), 200, headers)
 
-# if __name__ == '__main__':
-#      class Flask_Request:
-#           def __init__(self, request_dict):
-#                self.args = request_dict
-#                self.method = 'Not OPTIONS'
-#      final_list = main(Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments'}))
-#      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+if __name__ == '__main__':
+    #  class Flask_Request:
+    #       def __init__(self, request_dict):
+    #            self.args = request_dict
+    #            self.method = 'Not OPTIONS'
+    batch_response = Query.batch_data('00uvtggi8KpWsaXZw4x6')
+    cut_off_data = batch_response['data']
+      #final_list = main(Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'badge':'topFan', 'order':'retention'}))
+    raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+    scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 #      # max_date = datetime(2018,1,1)
 #      # for item in raw_data:
 #      #      date = item[5]
 #      #      if date > max_date and item[1] is None:
 #      #           max_date = date
-     
-#      print(final_list[0])
+    for i in range(0,25):
+        print(scored_comments[i]['badge_score'])
