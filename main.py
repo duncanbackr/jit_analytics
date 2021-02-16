@@ -33,15 +33,20 @@ def main(request):
     perPage = int(requestArgs.get('perPage', 100))
     limit = requestArgs.get('sample', 5000)
     
+    """ Create video filter string """
+    if requestArgs.get('videoId'):
+        video_string = Query.parse.create_string(requestArgs.get('videoId'))
+    else:
+        video_string = ""
+    
     """ Get data from db and backrest """
-    raw_data = Query.latest_comments(okta_id, limit)
-    #start = time.time()
+    raw_data = Query.latest_comments(okta_id, video_string, limit)
     batch_response = Query.batch_data(okta_id)
     if batch_response.get('error'):
         return (jsonify(batch_response), 500)
     else:
         cut_off_data = batch_response['data']
-    #end = time.time()
+
     """ Add analytics calculations """
     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 
@@ -87,19 +92,16 @@ def main(request):
                     }), 200, headers)
 
 if __name__ == '__main__':
-    #  class Flask_Request:
-    #       def __init__(self, request_dict):
-    #            self.args = request_dict
-    #            self.method = 'Not OPTIONS'
-    batch_response = Query.batch_data('00uvtggi8KpWsaXZw4x6')
-    cut_off_data = batch_response['data']
-      #final_list = main(Flask_Request({'okta_id':'00u1mjatc3FRbFhUr4x7', 'resource':'comments', 'badge':'topFan', 'order':'retention'}))
-    raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-    scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
-#      # max_date = datetime(2018,1,1)
-#      # for item in raw_data:
-#      #      date = item[5]
-#      #      if date > max_date and item[1] is None:
-#      #           max_date = date
-    for i in range(0,25):
-        print(scored_comments[i]['badge_score'])
+     class Flask_Request:
+          def __init__(self, request_dict):
+               self.args = request_dict
+               self.method = 'Not OPTIONS'
+     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'videoId':'806z770z', 'perPage':10}))
+     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+     # max_date = datetime(2018,1,1)
+     # for item in raw_data:
+     #      date = item[5]
+     #      if date > max_date and item[1] is None:
+     #           max_date = date
+     
+     print(final_list[0])
