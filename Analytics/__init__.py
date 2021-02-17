@@ -68,4 +68,4 @@ def add_score(all_rows, cut_off_data, time_now):
             else:
                 replies[parent_comment] = [comment]
             
-    return  proccessed_comments
+    return  proccessed_comments, replies
