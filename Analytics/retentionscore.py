@@ -9,18 +9,18 @@ def remove_none(value):
     else:
         return value
 
-def add_retention(total_comments, top_fan_cutoff, total_responses, total_replies, badge, delays, maxs, mins):
+def add_retention(total_comments, top_fan_cutoff, total_responses, total_replies, badge, delays_scaled, maxs, mins):
     '''takes in parameters and returns retention score'''
 
-    delay1, delay2, delay3 = delays
+    delay1_scaled, delay2_scaled, delay3_scaled = delays_scaled
     
     if badge == 'New Fan':
-        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) - delay1 + \
-                            remove_none(delay3) - 1 + min_max_scaler(total_replies, maxs[2], mins[2])
+        return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) - delay1_scaled + \
+                            remove_none(delay3_scaled) - 1 + min_max_scaler(total_replies, maxs['total_replies'], mins['total_replies'])
     elif badge == 'reEngageFan':
-        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) - delay1  + \
-                                remove_none(delay3) + 2 + min_max_scaler(total_replies, maxs[2], mins[2])
+        return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) - delay1_scaled  + \
+                                remove_none(delay3_scaled) + 2 + min_max_scaler(total_replies, maxs['total_replies'], mins['total_replies'])
     else:
-        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) + \
-                                    remove_none(delay3) +  min_max_scaler(total_replies, maxs[2], mins[2])- delay1 
+        return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + \
+                                    remove_none(delay3_scaled) +  min_max_scaler(total_replies, maxs['total_replies'], mins['total_replies'])- delay1_scaled
 
