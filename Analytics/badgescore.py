@@ -12,7 +12,7 @@ def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, dela
         return 1/delay1
 
     elif badge == 'trendingFan':
-        return total_comments/top_fan_cutoff *(1/delay1)
+        return total_comments/top_fan_cutoff + (1/delay1)
 
     elif badge == 'reEngageFan':
         return  bin_scale(delay2, delay2_dict) - 1/bin_scale(delay1, delay1_dict)
