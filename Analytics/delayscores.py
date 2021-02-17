@@ -18,7 +18,7 @@ def create_delay_scores_scaled(last_comment, sec_comment, time_now, delay_max, d
         return [delay1_scaled, delay2_scaled, delay3_scaled]
 
     else:
-        return [delay1_scaled, None, None]
+        return [delay1_scaled,0, 0]
 
 def create_delay_scores_unscaled(last_comment, sec_comment, time_now):
     '''subtracts dates in dataframe from todays date and converts 
