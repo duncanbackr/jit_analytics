@@ -5,9 +5,8 @@ from Analytics.delayscores import create_delay_scores
 from Analytics.growthscore import add_growth
 from Analytics.preparedict import unpack
 from Analytics.retentionscore import add_retention
-from Analytics.scale import delay1_dict, delay2_dict, delay3_dict, comments_dict, \
-    reply_dict, response_dict, bin_scale
-  
+#import time
+
 def datetime_now():
     return datetime.utcnow()
 
@@ -17,13 +16,14 @@ def add_score(all_rows, cut_off_data, time_now):
     #####min, max values for scaling####
     maxs = []
     mins = []
-
+    
+    #start = time.time()
     for i in (5,10,11,12, 13):
         maxs.append(max([row[i] for row in all_rows if row[i] is not None]))
 
     for i in (5,10,11,12, 13):
         mins.append(min([row[i] for row in all_rows if row[i] is not None]))
-
+    #end = time.time()
     replies = {}
     proccessed_comments = []
     for row in all_rows:
@@ -69,3 +69,4 @@ def add_score(all_rows, cut_off_data, time_now):
                 replies[parent_comment] = [comment]
             
     return  proccessed_comments, replies
+    #print(end - start)
