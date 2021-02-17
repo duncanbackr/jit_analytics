@@ -91,12 +91,12 @@ if __name__ == '__main__':
           def __init__(self, request_dict):
                self.args = request_dict
                self.method = 'Not OPTIONS'
-     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'videoId':'806z770z', 'perPage':10}))
+     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'badge_score'}))
      # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
      # max_date = datetime(2018,1,1)
      # for item in raw_data:
      #      date = item[5]
      #      if date > max_date and item[1] is None:
      #           max_date = date
-     for i in range(0,10):
-        print(final_list[i])
+     #for i in range(0,10):
+     print(final_list)

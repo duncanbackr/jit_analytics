@@ -36,29 +36,29 @@ def add_score(all_rows, cut_off_data, time_now):
 
         if parent_comment is None:
 
-            delays = create_delay_scores(comment['timestamp'], comment['sec_comment'], time_now)
+            delays = create_delay_scores(comment['timestamp'], comment['sec_comment'], time_now, maxs, mins)
 
             comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, delays)
 
             comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['badge'], delays, maxs, mins)
 
-            # comment['retention'] = add_retention(comment['total_comments'], 2, 
-            #                                         comment['responses'], comment['total_replies'], comment['badge'], delays, maxs, mins)
+            comment['retention'] = add_retention(comment['total_comments'], top_fan_cutoff, 
+                                                     comment['responses'], comment['total_replies'], comment['badge'], delays, maxs, mins)
 
             comment['balanced'] = 0.5*(
-            #                             add_retention(comment['total_comments'], top_fan_cutoff, 
-            #                                     comment['responses'], comment['total_replies'], comment['badge'], delays, maxs, mins) 
+                                         add_retention(comment['total_comments'], top_fan_cutoff, 
+                                                 comment['responses'], comment['total_replies'], comment['badge'], delays, maxs, mins) 
                                         
-            #                             + 
+                                         + 
                                         
-                                        add_growth(comment['total_comments'], top_fan_cutoff, 
+                                        add_growth(comment['total_comments'], top_fan_cutoff,  \
                                                 comment['responses'], comment['badge'], delays, maxs, mins)
                                         
                                         )
 
-            # comment['badge_score'] =  add_badge_score(comment['total_comments'], top_fan_cutoff, 
-            #                                         comment['responses'], comment['badge'], delays, maxs, mins)
+            comment['badge_score'] =  add_badge_score(comment['total_comments'], top_fan_cutoff, 
+                                                    comment['responses'], comment['badge'], delays, maxs, mins)
 
             proccessed_comments.append(comment)
 
