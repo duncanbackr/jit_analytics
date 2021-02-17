@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from Analytics.minmax import min_max_scaler
+from Analytics.scaler import min_max_scaler
 
 def create_delay_scores(last_comment, sec_comment, time_now, maxs, mins):
     '''subtracts dates in dataframe from todays date and converts 

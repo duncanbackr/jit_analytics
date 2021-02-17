@@ -1,6 +1,6 @@
 from datetime import datetime
 from Analytics.delayscores import create_delay_scores
-from Analytics.minmax import min_max_scaler
+from Analytics.scaler import min_max_scaler
 
 def remove_none(value):
     if str(value) == 'None':
