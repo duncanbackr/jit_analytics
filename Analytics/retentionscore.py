@@ -1,5 +1,5 @@
 from datetime import datetime
-from Analytics.delayscores import create_delay_scores
+from Analytics.delayscores import create_delay_scores_scaled
 from Analytics.scaler import min_max_scaler
 
 def remove_none(value):

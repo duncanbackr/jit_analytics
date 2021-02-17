@@ -1,5 +1,5 @@
 from datetime import datetime
-from Analytics.delayscores import create_delay_scores
+from Analytics.delayscores import create_delay_scores_unscaled
 
 def add_badge(total_comments, top_fan_cutoff, delays):
     '''Returns badge'''
