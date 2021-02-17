@@ -17,12 +17,12 @@ def add_retention(total_comments, top_fan_cutoff, total_responses, total_replies
     delay1, delay2, delay3 = delays
     
     if badge == 'New Fan':
-        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) + 1/delay1 + \
+        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) - delay1 + \
                             remove_none(delay3) - 1 + min_max_scaler(total_replies, maxs[2], mins[2])
     elif badge == 'reEngageFan':
-        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) + 1/delay1  + \
+        return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) - delay1  + \
                                 remove_none(delay3) + 2 + min_max_scaler(total_replies, maxs[2], mins[2])
     else:
         return min_max_scaler(total_comments, maxs[1], mins[1]) - min_max_scaler(total_responses, maxs[3], mins[3]) + \
-                                    remove_none(delay3) +  min_max_scaler(total_replies, maxs[2], mins[2])
+                                    remove_none(delay3) +  min_max_scaler(total_replies, maxs[2], mins[2])- delay1 
 

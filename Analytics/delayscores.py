@@ -19,11 +19,11 @@ def create_delay_scores(last_comment, sec_comment, time_now, maxs, mins):
         delay2_scaled = min_max_scaler(delay2, delay2_min, delay2_max)
 
         delay3 = (time_now - sec_comment).days+ ((time_now - sec_comment).seconds)/(3600*24)
-        #delay3_min = (time_now - maxs[4]).days + ((time_now - maxs[4]).seconds)/(3600*24)
-        #delay3_max = (time_now - mins[4]).days + ((time_now - mins[4]).seconds)/(3600*24)
-        #delay3_scaled = min_max_scaler(delay3, delay3_min, delay3_max)
+        delay3_min = (time_now - maxs[4]).days + ((time_now - maxs[4]).seconds)/(3600*24)
+        delay3_max = (time_now - mins[4]).days + ((time_now - mins[4]).seconds)/(3600*24)
+        delay3_scaled = min_max_scaler(delay3, delay3_min, delay3_max)
 
-        return [delay1_scaled, delay2_scaled, delay3]
+        return [delay1_scaled, delay2_scaled, delay3_scaled]
 
     else:
         return [delay1_scaled, None, None]
