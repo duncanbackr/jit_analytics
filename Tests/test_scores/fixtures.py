@@ -10,7 +10,6 @@ import Sort
 from Filter import from_list
 from datetime import datetime
 from Tests.test_integration.raw_data_comments import raw_data_comments
-#from Analytics import maxs, mins
 
 raw_data_comments = raw_data_comments[0:100]
 

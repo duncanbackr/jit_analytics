@@ -3,8 +3,6 @@ from Tests.test_scores.fixtures import trend_fan, top_fan, growth, retention, \
 import datetime
 from Analytics.preparedict import unpack
 
-# ####badge tests####
-
 def test_badge_Top(top_fan):
     assert 'topFan' ==  top_fan
 
