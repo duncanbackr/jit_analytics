@@ -16,7 +16,7 @@ sql_columns = [
     {
         'name':'youtube_fan_id', 
         'type':int, 
-        'required': True,
+        'required': False,
         'root_required': True
     },
     {
@@ -88,7 +88,7 @@ sql_columns = [
     {
         'name':'account_title', 
         'type':str, 
-        'required': True,
+        'required': False,
         'root_required': True
     },
     {

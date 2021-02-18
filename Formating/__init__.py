@@ -41,7 +41,12 @@ def rename(comment, new_format):
     return {key: comment[name]
             for key, name in new_format.items()}
 
-def comments(comments, reply_dict, pageNum, perPage):
+def comments(comments:list, 
+            reply_dict:dict,
+            creator:dict, 
+            archive:bool,
+            page:int,
+            perPage:int):
     ''' 
         Function that re-formats comments
         
@@ -51,20 +56,29 @@ def comments(comments, reply_dict, pageNum, perPage):
         returns:
             List of processed comments
     '''
-    comments = comments[pageNum*perPage:pageNum*perPage + perPage]
+    i = 0
     final_list = []
-    for comment in comments:
+    for comment in comments[page*perPage::]:
         formated_comment = rename(comment, comment_format)
 
         replies = reply_dict.get(comment['comment_id'])
         if replies:
-            formated_comment['replies'] = [rename(comment, reply_format)
-                    for comment in replies]
+            formated_comment['replies'] = []
+            for reply in replies:
+                formated_reply = rename(reply, reply_format)
+                if formated_reply['fanID'] is None:
+                    formated_reply['platformAvatar'] = creator['thumbnail']
+                    formated_reply['authorDisplayName'] = creator['channel_name']
+                    formated_comment['archive'] = True
+            
+                formated_comment['replies'].append(formated_reply)
 
-        # else:
-            # formated_comment['replies'] = []
-    
-        final_list.append(formated_comment)
+        if formated_comment['archive'] is archive:
+            final_list.append(formated_comment)
+
+        i += 1
+        if i == perPage:
+            return final_list
 
     return final_list
         
