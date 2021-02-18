@@ -69,9 +69,8 @@ def main(request):
         sorted_comments = Sort.from_list(
               filtered_comments, 
               param=requestArgs.get('order', 'balanced'))
-        total_length = len(sorted_comments)
         archive = requestArgs.get('archive') == 'true'
-        final_list = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
+        final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
         
     if config.ENV == 'Local':
         return final_list

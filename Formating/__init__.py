@@ -58,7 +58,7 @@ def comments(comments:list,
     '''
     i = 0
     final_list = []
-    for comment in comments[page*perPage::]:
+    for comment in comments:
         formated_comment = rename(comment, comment_format)
 
         replies = reply_dict.get(comment['comment_id'])
@@ -67,6 +67,7 @@ def comments(comments:list,
             for reply in replies:
                 formated_reply = rename(reply, reply_format)
                 if formated_reply['fanID'] is None:
+                    # By creator scenario
                     formated_reply['platformAvatar'] = creator['thumbnail']
                     formated_reply['authorDisplayName'] = creator['channel_name']
                     formated_comment['archive'] = True
@@ -75,15 +76,12 @@ def comments(comments:list,
 
         if formated_comment['archive'] is archive:
             final_list.append(formated_comment)
-
-        i += 1
-        if i == perPage:
-            return final_list
-
-    return final_list
+            
+    total_length = len(final_list)
+    return final_list[page*perPage:page*perPage+perPage], total_length
         
 
-def fans(fans, pageNum, perPage):
+def fans(fans, page, perPage):
     ''' 
         Function that re-formats fans keeping only first
         
@@ -100,6 +98,6 @@ def fans(fans, pageNum, perPage):
             final_list.append(rename(fan, fan_format))  
                 
     total_length = len(final_list)
-    final_list = final_list[pageNum*perPage:pageNum*perPage + perPage]
+    final_list = final_list[page*perPage:page*perPage + perPage]
 
     return final_list, total_length
