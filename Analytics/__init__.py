@@ -5,7 +5,7 @@ from Analytics.delayscores import create_delay_scores_scaled, create_delay_score
 from Analytics.growthscore import add_growth
 from Analytics.preparedict import unpack
 from Analytics.retentionscore import add_retention
-from Analytics.scaledelay import max_delay, min_delay
+from Analytics.scaledelay import delay_diff
 #import time
 
 def datetime_now():
@@ -24,25 +24,16 @@ def add_score(all_rows, cut_off_data, time_now):
     for name, i in [('date_posted', 5), ('total_comments', 10), ('total_replies', 11), ('total_responses', 12), ('sec_date_posted', 13)]:
          mins[name] = min([row[i] for row in all_rows if row[i] is not None])
 
-    max_delay1 = max_delay(time_now, mins['date_posted'])
-    min_delay1 = max_delay(time_now, maxs['date_posted'])
-
-    max_delay3 = max_delay(time_now, mins['sec_date_posted'])
-    min_delay3 = max_delay(time_now, maxs['sec_date_posted'])
-
-    delay2_max = (maxs['date_posted'] - mins['sec_date_posted']).days + ((maxs['date_posted'] - mins['sec_date_posted']).seconds)/(3600*24)
-    delay2_min = 0
-
     delay_max = {
-                "delay1": max_delay1,
-                "delay2": delay2_max,
-                "delay3": max_delay3
+                "delay1": delay_diff(time_now, mins['date_posted']),
+                "delay2": delay_diff(maxs['date_posted'], mins['sec_date_posted']),
+                "delay3": delay_diff(time_now, mins['sec_date_posted'])
                 }
 
     delay_min = {
-                "delay1": min_delay1,
-                "delay2": delay2_min,
-                "delay3": min_delay3
+                "delay1": delay_diff(time_now, maxs['date_posted']),
+                "delay2": 0,
+                "delay3": delay_diff(time_now, maxs['sec_date_posted'])
                 }
 
     replies = {}

@@ -1,18 +1,10 @@
 
-def min_delay(time_now, max_value):
+def delay_diff(time1, time2):
     '''
-    takes a datetime object and calculates 
-    delay for max dates
+    takes 2 datetime objects and calculates 
+    time difference in fractions of days and seconds
     '''
-    delay_min = (time_now - max_value).days + ((time_now - max_value).seconds)/(3600*24)
+    delay = (time1- time2).days + ((time1 - time2).seconds)/(3600*24)
 
-    return delay_min
+    return delay
 
-def max_delay(time_now, min_value):
-    '''
-    takes a datetime object and calculates 
-    delay for min dates
-    '''
-    delay_max = (time_now - min_value).days + ((time_now - min_value).seconds)/(3600*24)
-
-    return delay_max
