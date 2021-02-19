@@ -7,6 +7,7 @@ def add_growth(total_comments, top_fan_cutoff, total_responses, badge, delays_sc
     
     delay1_scaled, delay2_scaled, delay3_scaled = delays_scaled
 
+
     if badge == 'newFan':
         return 0.5 + min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
     

@@ -13,6 +13,7 @@ def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, dela
     elif badge == 'trendingFan':
         return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - delay1_scaled
 
+
     elif badge == 'reEngageFan':
         return  delay2_scaled - delay1_scaled
 

@@ -1,4 +1,4 @@
-def full_query(okta_id, limit=5000):
+def full_query(okta_id, video_string, limit=5000):
     query = f'''
             WITH 
             -- FIRST CTE
@@ -74,7 +74,7 @@ def full_query(okta_id, limit=5000):
                 FROM 
                     all_comments
                 WHERE 
-                    parent_youtube_comment_id is NULL 
+                    parent_youtube_comment_id is NULL{video_string}
                 AND
                     by_creator is false
                 ORDER BY timestamp desc
