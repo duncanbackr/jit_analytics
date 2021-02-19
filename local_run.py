@@ -3,11 +3,19 @@ import Analytics, Filter, Formating, Query, Sort
 from flask import jsonify
 import math
 import config
-#import time
+from flask import Flask
+app = Flask(__name__)
+
+class Flask_Request:
+    def __init__(self, request_dict):
+        self.args = request_dict
+        self.method = 'Not OPTIONS'
+
+request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
 
 def main(request):
     #total_start = time.time()
-
+    #request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
     ## Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
         ## Allows GET requests from any origin with the Content-Type
@@ -88,16 +96,11 @@ def main(request):
                     'totalPages': math.ceil(total_length/perPage)
                     }), 200, headers)
 
+@app.route('/')
+def return_list():
+    final_list = main(request)
 
-# if __name__ == '__main__':
-#     class Flask_Request:
-#         def __init__(self, request_dict):
-#             self.args = request_dict
-#             self.method = 'Not OPTIONS'
-#     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'}))
-#     #aw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-#     #cut_off_data = [4,2]
-#     #final_list = Analytics.add_score(raw_data,cut_off_data, Analytics.datetime_now())
-#     for i in range(0,40):
-#         print(final_list[i]['badge'])
+    return jsonify(results = final_list)
 
+if __name__ == '__main__':
+    app.run()
