@@ -1,5 +1,5 @@
 from Tests.test_scores.fixtures import trend_fan, top_fan, growth, retention, \
-                                    sort_growth, filter_archived, filter_badge
+                                    sort_growth, filter_badge
 import datetime
 from Analytics.preparedict import unpack
 
@@ -21,5 +21,3 @@ def test_sort_growth(sort_growth):
 def test_filter_badge(filter_badge):
     assert [{'growth':2, 'badge':'topFan'}, {'growth':5, 'badge':'topFan'}] == filter_badge
 
-def test_filter_archive(filter_archived):
-    assert [{'archived':True, 'badge':'topFan'}] == filter_archived
