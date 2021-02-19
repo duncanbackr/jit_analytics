@@ -1,5 +1,5 @@
 import pytest
-from Analytics.delayscores import create_delay_scores
+from Analytics.delayscores import create_delay_scores_unscaled
 from Analytics.addbadge import add_badge
 from Analytics.growthscore import add_growth
 from Analytics.retentionscore import add_retention

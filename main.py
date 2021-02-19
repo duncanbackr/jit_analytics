@@ -88,12 +88,34 @@ def main(request):
                     'totalPages': math.ceil(total_length/perPage)
                     }), 200, headers)
 
-if __name__ == '__main__':
-    class Flask_Request:
-        def __init__(self, request_dict):
-            self.args = request_dict
-            self.method = 'Not OPTIONS'
+# if __name__ == '__main__':
+#     class Flask_Request:
+#         def __init__(self, request_dict):
+#             self.args = request_dict
+#             self.method = 'Not OPTIONS'
+# <<<<<<< eli/test
+#     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'badge_score'}))
+#     #aw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+#     #cut_off_data = [4,2]
+#     #final_list = Analytics.add_score(raw_data,cut_off_data, Analytics.datetime_now())
+#     #  final_list_2 = Sort.from_list(final_list, param = 'retention')
+#      # max_date = datetime(2018,1,1)
+#      # for item in raw_data:
+#      #      date = item[5]
+#      #      if date > max_date and item[1] is None:
+#      #           max_date = date
+#     #for i in range(0,10):
+#     print(final_list)
 
-    final_list = main(Flask_Request({'okta_id':'00u28tfvep3vxPf3B4x7', 'resource':'comments', 'archive':'true'}))
 
-    print([item.get('replies') for item in final_list])
+
+#     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
+#     # cut_off_data = [4,2]
+#     # time = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
+#     # print(time[0:5])
+# =======
+
+#     final_list = main(Flask_Request({'okta_id':'00u28tfvep3vxPf3B4x7', 'resource':'comments', 'archive':'true'}))
+
+#     print([item.get('replies') for item in final_list])
+# >>>>>>> dev

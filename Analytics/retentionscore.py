@@ -1,21 +1,20 @@
 from datetime import datetime
-from Analytics.delayscores import create_delay_scores
-from Analytics.scale import delay1_dict, delay2_dict, delay3_dict, comments_dict, \
-    reply_dict, response_dict, bin_scale
+from Analytics.delayscores import create_delay_scores_scaled
+from Analytics.scaler import min_max_scaler
 
-def add_retention(total_comments, top_fan_cutoff, total_responses, total_replies, badge, delays):
+def add_retention(total_comments, top_fan_cutoff, total_responses, total_replies, badge, delays_scaled, maxs, mins):
     '''takes in parameters and returns retention score'''
 
-    delay1, delay2, delay3 = delays
-    
-    x = total_comments/top_fan_cutoff
+    delay1_scaled, delay2_scaled, delay3_scaled = delays_scaled
     
     if badge == 'New Fan':
-        return (bin_scale(x, comments_dict) - bin_scale(total_responses, response_dict) + 1/bin_scale(delay1, delay1_dict) + 
-                            bin_scale(delay3, delay3_dict) - 1 + bin_scale(total_replies, reply_dict))
+        return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) \
+                                - delay1_scaled - 1 + min_max_scaler(total_replies, maxs['total_replies'], mins['total_replies'])
     elif badge == 'reEngageFan':
-        return (bin_scale(x, comments_dict) - bin_scale(total_responses, response_dict) + 1/bin_scale(delay1, delay1_dict)  + 
-                                bin_scale(delay3, delay3_dict) + 2 + bin_scale(total_replies, reply_dict))
+        return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) \
+                                 - delay1_scaled  + delay3_scaled + 2 + min_max_scaler(total_replies, maxs['total_replies'], mins['total_replies'])
     else:
-        return bin_scale(x, comments_dict) - bin_scale(total_responses, response_dict) + bin_scale(delay3, delay3_dict) + bin_scale(total_replies, reply_dict)
+        return min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) - min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + \
+                                    delay3_scaled +  min_max_scaler(total_replies, maxs['total_replies'], mins['total_replies'])- delay1_scaled
+
 
