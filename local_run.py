@@ -4,103 +4,107 @@ from flask import jsonify
 import math
 import config
 from flask import Flask
-app = Flask(__name__)
 
-class Flask_Request:
-    def __init__(self, request_dict):
-        self.args = request_dict
-        self.method = 'Not OPTIONS'
 
-request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
+if config.ENV == 'Local':
 
-def main(request):
-    #total_start = time.time()
-    #request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
-    ## Set CORS headers for the preflight request
-    if request.method == 'OPTIONS':
-        ## Allows GET requests from any origin with the Content-Type
-        headers = {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET',
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Max-Age': '3600'
-        }
+    app = Flask(__name__)
 
-        return ('', 204, headers)
+    class Flask_Request:
+        def __init__(self, request_dict):
+            self.args = request_dict
+            self.method = 'Not OPTIONS'
 
-    requestArgs = request.args
+    request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
 
-    if requestArgs.get('okta_id'):
-        okta_id = requestArgs.get('okta_id')
-    else:
-        if config.ENV == 'Local':
-              return {'error': 'must include an okta id'}
-        return (jsonify({'error': 'must include an okta id'}), 400)
+    def main(request):
+        #total_start = time.time()
+        #request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
+        ## Set CORS headers for the preflight request
+        if request.method == 'OPTIONS':
+            ## Allows GET requests from any origin with the Content-Type
+            headers = {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Max-Age': '3600'
+            }
 
-    page = int(requestArgs.get('page', 0))
-    perPage = int(requestArgs.get('perPage', 100))
-    limit = requestArgs.get('sample', 5000)
-    
-    """ Create video filter string """
-    if requestArgs.get('videoId'):
-        video_string = Query.parse.create_string(requestArgs.get('videoId'))
-    else:
-        video_string = ""
-    
-    """ Get data from db and backrest """
-    raw_data = Query.latest_comments(okta_id, video_string, limit)
-    backrest_response = Query.batch_data(okta_id)
-    if backrest_response.get('error'):
-        return (jsonify(backrest_response), 500)
-    else:
-        cut_off_data = backrest_response['data']
-        creator = backrest_response['creator']
+            return ('', 204, headers)
 
-    """ Add analytics calculations """
-    scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
+        requestArgs = request.args
 
-    if requestArgs.get('resource') == 'fans':
-        filtered_comments = Filter.from_list(
-              scored_comments, 
-              badge=requestArgs.get('badge', 'topFan'))
-        sorted_comments = Sort.from_list(
-              filtered_comments, 
-              param='badge_score')
-        final_list, total_length = Formating.fans(sorted_comments, page, perPage)
+        if requestArgs.get('okta_id'):
+            okta_id = requestArgs.get('okta_id')
+        else:
+            if config.ENV == 'Local':
+                return {'error': 'must include an okta id'}
+            return (jsonify({'error': 'must include an okta id'}), 400)
 
-    elif requestArgs.get('resource') == 'comments':
-        filtered_comments = Filter.from_list(
-              scored_comments, 
-              videoId=requestArgs.get('videoId'),
-              badge=requestArgs.get('badge'),
-              comment_class=requestArgs.get('comment_class'))
-        sorted_comments = Sort.from_list(
-              filtered_comments, 
-              param=requestArgs.get('order', 'balanced'))
-        archive = requestArgs.get('archive') == 'true'
-        final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
+        page = int(requestArgs.get('page', 0))
+        perPage = int(requestArgs.get('perPage', 100))
+        limit = requestArgs.get('sample', 5000)
         
-    if config.ENV == 'Local':
-        return final_list
+        """ Create video filter string """
+        if requestArgs.get('videoId'):
+            video_string = Query.parse.create_string(requestArgs.get('videoId'))
+        else:
+            video_string = ""
+        
+        """ Get data from db and backrest """
+        raw_data = Query.latest_comments(okta_id, video_string, limit)
+        backrest_response = Query.batch_data(okta_id)
+        if backrest_response.get('error'):
+            return (jsonify(backrest_response), 500)
+        else:
+            cut_off_data = backrest_response['data']
+            creator = backrest_response['creator']
 
-    ## Set CORS headers for the main request
-    headers = {
-        'Access-Control-Allow-Origin': '*'
-    }
-    # total_end = time.time()
-    # final_list.insert(0, {'batch_call:': end-start, 'total_time': total_end-total_start})
+        """ Add analytics calculations """
+        scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
 
-    return (jsonify({'success': True,
-                    'data': final_list,
-                    'page': page,
-                    'totalPages': math.ceil(total_length/perPage)
-                    }), 200, headers)
+        if requestArgs.get('resource') == 'fans':
+            filtered_comments = Filter.from_list(
+                scored_comments, 
+                badge=requestArgs.get('badge', 'topFan'))
+            sorted_comments = Sort.from_list(
+                filtered_comments, 
+                param='badge_score')
+            final_list, total_length = Formating.fans(sorted_comments, page, perPage)
 
-@app.route('/')
-def return_list():
-    final_list = main(request)
+        elif requestArgs.get('resource') == 'comments':
+            filtered_comments = Filter.from_list(
+                scored_comments, 
+                videoId=requestArgs.get('videoId'),
+                badge=requestArgs.get('badge'),
+                comment_class=requestArgs.get('comment_class'))
+            sorted_comments = Sort.from_list(
+                filtered_comments, 
+                param=requestArgs.get('order', 'balanced'))
+            archive = requestArgs.get('archive') == 'true'
+            final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
+            
+        if config.ENV == 'Local':
+            return final_list
 
-    return jsonify(results = final_list)
+        ## Set CORS headers for the main request
+        headers = {
+            'Access-Control-Allow-Origin': '*'
+        }
+        # total_end = time.time()
+        # final_list.insert(0, {'batch_call:': end-start, 'total_time': total_end-total_start})
+
+        return (jsonify({'success': True,
+                        'data': final_list,
+                        'page': page,
+                        'totalPages': math.ceil(total_length/perPage)
+                        }), 200, headers)
+
+    @app.route('/')
+    def return_list():
+        final_list = main(request)
+
+        return jsonify(results = final_list)
 
 if __name__ == '__main__':
     app.run()
