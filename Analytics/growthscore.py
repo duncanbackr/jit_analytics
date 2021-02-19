@@ -12,5 +12,5 @@ def add_growth(total_comments, top_fan_cutoff, total_responses, badge, delays_sc
         return min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
     
     else:
-        return 1.05*min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) + \
+        return 2*min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) + \
                             min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
