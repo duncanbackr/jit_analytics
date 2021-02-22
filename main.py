@@ -96,16 +96,12 @@ if __name__ == '__main__':
         
     app = Flask(__name__)
 
-    # class Flask_Request:
-    #     def __init__(self, request_dict):
-    #         self.args = request_dict
-    #         self.method = 'Not OPTIONS'
+    class Flask_Request:
+        def __init__(self, request_dict):
+            self.args = request_dict
+            self.method = 'Not OPTIONS'
 
-<<<<<<< HEAD
-    # request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'retention'})
-=======
-    request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
->>>>>>> 75143082c243cfc4541540d5597b90682fee9f9c
+    request = Flask_Request({'okta_id':'00u14x2rtpzl08o054x7', 'resource':'comments', 'order':'retention'})
 
     @app.route('/')
     def local_main():
