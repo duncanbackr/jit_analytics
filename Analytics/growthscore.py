@@ -11,9 +11,8 @@ def add_growth(total_comments, top_fan_cutoff, total_responses, badge, delays_sc
     if badge == 'newFan':
         return min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
     
-    elif badge == 'topFan':
-        return 2*min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) + 0.5 + \
-                            min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
+    elif badge == 'trendingFan':
+        return min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
     else:
-        return 2*min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) + \
+        return 0.9*min_max_scaler(total_comments, maxs['total_comments'], mins['total_comments']) + 0.5 + \
                             min_max_scaler(total_responses, maxs['total_responses'], mins['total_responses']) + delay1_scaled
