@@ -4,6 +4,7 @@ from flask import jsonify
 import math
 import config
 #import time
+from flask import Flask, request
 
 def main(request):
     #total_start = time.time()
@@ -25,8 +26,8 @@ def main(request):
     if requestArgs.get('okta_id'):
         okta_id = requestArgs.get('okta_id')
     else:
-        if config.ENV == 'Local':
-              return {'error': 'must include an okta id'}
+        # if config.ENV == 'Local':
+        #       return {'error': 'must include an okta id'}
         return (jsonify({'error': 'must include an okta id'}), 400)
 
     page = int(requestArgs.get('page', 0))
@@ -72,8 +73,8 @@ def main(request):
         archive = requestArgs.get('archive') == 'true'
         final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
         
-    if config.ENV == 'Local':
-        return final_list
+    # if config.ENV == 'Local':
+    #     return final_list
 
     ## Set CORS headers for the main request
     headers = {
@@ -88,34 +89,28 @@ def main(request):
                     'totalPages': math.ceil(total_length/perPage)
                     }), 200, headers)
 
-# if __name__ == '__main__':
-#     class Flask_Request:
-#         def __init__(self, request_dict):
-#             self.args = request_dict
-#             self.method = 'Not OPTIONS'
-# <<<<<<< eli/test
-#     final_list = main(Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'badge_score'}))
-#     #aw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-#     #cut_off_data = [4,2]
-#     #final_list = Analytics.add_score(raw_data,cut_off_data, Analytics.datetime_now())
-#     #  final_list_2 = Sort.from_list(final_list, param = 'retention')
-#      # max_date = datetime(2018,1,1)
-#      # for item in raw_data:
-#      #      date = item[5]
-#      #      if date > max_date and item[1] is None:
-#      #           max_date = date
-#     #for i in range(0,10):
-#     print(final_list)
+
+
+# if config.ENV == 'Local':
+if __name__ == '__main__':
+        
+    app = Flask(__name__)
+
+    # class Flask_Request:
+    #     def __init__(self, request_dict):
+    #         self.args = request_dict
+    #         self.method = 'Not OPTIONS'
+
+    #request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'growth'})
+
+    @app.route('/')
+    def local_main():
+        return main(request)
+
+        # return jsonify(results = final_list)
+
+    app.run()
 
 
 
-#     # raw_data = Query.latest_comments('00uvtggi8KpWsaXZw4x6', 5000)
-#     # cut_off_data = [4,2]
-#     # time = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
-#     # print(time[0:5])
-# =======
 
-#     final_list = main(Flask_Request({'okta_id':'00u28tfvep3vxPf3B4x7', 'resource':'comments', 'archive':'true'}))
-
-#     print([item.get('replies') for item in final_list])
-# >>>>>>> dev
