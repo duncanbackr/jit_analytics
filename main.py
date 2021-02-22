@@ -100,7 +100,7 @@ if config.ENV == 'Local':
             self.args = request_dict
             self.method = 'Not OPTIONS'
 
-    request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'retention'})
+    request = Flask_Request({'okta_id':'00uvtggi8KpWsaXZw4x6', 'resource':'comments', 'order':'growth'})
 
     @app.route('/')
     def return_list():
