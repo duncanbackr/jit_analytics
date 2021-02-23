@@ -19,7 +19,7 @@ def add_balanced(total_comments, top_fan_cutoff, total_responses, total_replies,
     elif badge == 'topFan':
         return retention + (1-growth) + 0.2
     else:
-        return retention + (1-growth) - 1
+        return retention + (1-growth) - 0.8
 
     
     
