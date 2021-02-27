@@ -4,6 +4,7 @@ from flask import jsonify
 import math
 import config
 #import time
+from flask import Flask, request
 
 def main(request):
     #total_start = time.time()
@@ -25,8 +26,8 @@ def main(request):
     if requestArgs.get('okta_id'):
         okta_id = requestArgs.get('okta_id')
     else:
-        if config.ENV == 'Local':
-              return {'error': 'must include an okta id'}
+        # if config.ENV == 'Local':
+        #       return {'error': 'must include an okta id'}
         return (jsonify({'error': 'must include an okta id'}), 400)
 
     page = int(requestArgs.get('page', 0))
@@ -72,8 +73,8 @@ def main(request):
         archive = requestArgs.get('archive') == 'true'
         final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
         
-    if config.ENV == 'Local':
-        return final_list
+    # if config.ENV == 'Local':
+    #     return final_list
 
     ## Set CORS headers for the main request
     headers = {
@@ -88,12 +89,28 @@ def main(request):
                     'totalPages': math.ceil(total_length/perPage)
                     }), 200, headers)
 
+
+
+# if config.ENV == 'Local':
 if __name__ == '__main__':
-    class Flask_Request:
-        def __init__(self, request_dict):
-            self.args = request_dict
-            self.method = 'Not OPTIONS'
+        
+    app = Flask(__name__)
 
-    final_list = main(Flask_Request({'okta_id':'00u28tfvep3vxPf3B4x7', 'resource':'comments', 'archive':'true'}))
+    # class Flask_Request:
+    #     def __init__(self, request_dict):
+    #         self.args = request_dict
+    #         self.method = 'Not OPTIONS'
 
-    print([item.get('replies') for item in final_list])
+    #request = Flask_Request({'okta_id':'00u10v74k6FsEfLFP4x7', 'resource':'comments', 'order':'growth'})
+
+    @app.route('/')
+    def local_main():
+        return main(request)
+
+        # return jsonify(results = final_list)
+
+    app.run()
+
+ 
+
+
