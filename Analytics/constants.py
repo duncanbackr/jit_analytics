@@ -62,6 +62,12 @@ sql_columns = [
         'root_required': True
     },
     {
+        'name':'video_thumbnail', 
+        'type':str, 
+        'required': True,
+        'root_required': True
+    },
+    {
         'name':'total_comments', 
         'type':int, 
         'required': False,

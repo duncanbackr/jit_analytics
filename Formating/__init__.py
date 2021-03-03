@@ -10,6 +10,7 @@ comment_format = {
         'up_vote': 'up_vote',
         'down_vote': 'down_vote',
         'videoTitle': 'video_title',
+        'video_thumbnail': 'video_thumbnail',
         # 'Replies': [],
     }
 
