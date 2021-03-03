@@ -3,6 +3,7 @@ from Analytics.addbadge import add_badge
 from Analytics.badgescore import  add_badge_score
 from Analytics.delayscores import create_delay_scores_scaled, create_delay_scores_unscaled
 from Analytics.growthscore import add_growth
+from Analytics.balancedscore import add_balanced
 from Analytics.preparedict import unpack
 from Analytics.retentionscore import add_retention
 from Analytics.scaledelay import delay_diff
@@ -59,16 +60,9 @@ def add_score(all_rows, cut_off_data, time_now):
             comment['retention'] = add_retention(comment['total_comments'], top_fan_cutoff, 
                                                      comment['responses'], comment['total_replies'], comment['badge'], delays_scaled, maxs, mins)
 
-            comment['balanced'] = 0.5*(
-                                         add_retention(comment['total_comments'], top_fan_cutoff, 
-                                                 comment['responses'], comment['total_replies'], comment['badge'], delays_scaled, maxs, mins) 
-                                        
-                                         + 
-                                        
-                                        add_growth(comment['total_comments'], top_fan_cutoff,  \
-                                                comment['responses'], comment['badge'], delays_scaled, maxs, mins)
-                                        
-                                        )
+            comment['balanced'] = add_balanced(comment['total_comments'], top_fan_cutoff, 
+                                                    comment['responses'], comment['total_replies'], comment['badge'], delays_scaled, maxs, mins,
+                                                    comment['retention'], comment['growth'])
 
             comment['badge_score'] =  add_badge_score(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['badge'], delays_scaled, maxs, mins)
