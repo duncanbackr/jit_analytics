@@ -10,7 +10,7 @@ def test_badge_Trend(trend_fan):
     assert None ==  trend_fan
 
 def test_score_growth(growth):
-    assert 1.6193477148400648 ==  growth
+    assert 1.1193477148400648 ==  growth
 
 def test_score_retention(retention):
     assert 0.8806522851599351 ==  retention
