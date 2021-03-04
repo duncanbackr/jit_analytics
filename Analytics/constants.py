@@ -64,8 +64,8 @@ sql_columns = [
     {
         'name':'video_thumbnail', 
         'type':str, 
-        'required': True,
-        'root_required': True
+        'required': False,
+        'root_required': False
     },
     {
         'name':'total_comments', 

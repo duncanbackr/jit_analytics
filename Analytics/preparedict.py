@@ -4,7 +4,7 @@ def unpack(row):
     '''converts row to dictionary'''
 
     comment = {}
-    for i in range(18):
+    for i in range(len(row)):
         key = sql_columns[i]
         value = row[i]
         

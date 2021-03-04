@@ -9,9 +9,7 @@ import Analytics
 import Sort
 from Filter import from_list
 from datetime import datetime
-from Tests.test_integration.raw_data_comments import raw_data_comments
-
-raw_data_comments = raw_data_comments[0:100]
+from Tests.test_scores.mock_data import raw_sql_data
 
 time_now = datetime(2021, 2, 18, 18, 32, 34)
 
@@ -28,14 +26,14 @@ def trend_fan():
 @pytest.fixture(scope='function')
 def growth():
     cut_off_data = [4,2]
-    final_list = Analytics.add_score(raw_data_comments, cut_off_data, time_now)
+    final_list = Analytics.add_score(raw_sql_data, cut_off_data, time_now)
     return final_list[0][1]['growth']
 
 
 @pytest.fixture(scope='function')
 def retention():
     cut_off_data = [4,2]
-    final_list = Analytics.add_score(raw_data_comments, cut_off_data, time_now)
+    final_list = Analytics.add_score(raw_sql_data, cut_off_data, time_now)
     return final_list[0][1]['retention']
 
 @pytest.fixture(scope='function')
