@@ -1,9 +1,10 @@
-from Tests.test_unpack.fixtures import unpack_row, raw_rows, unpacked_rows
+from Tests.test_unpack.fixtures import raw_row, raw_rows, unpacked_rows
 import datetime
 from Analytics.preparedict import unpack
 
-def test_unpack(unpack_row):
-    assert unpack_row == {
+def test_unpack(raw_row):
+
+    final_unpacked_row = {
         'account_title': 'H D',
         'archived': False,
         'comment_id': 10270,
@@ -20,9 +21,14 @@ def test_unpack(unpack_row):
         'up_vote': None,
         'videoId': 211,
         'video_title': 'Blank video number 1',
+        'video_thumbnail': 'sample_video_url',
         'note': None,
         'youtube_fan_id': 5491,
     }
+    unpacked_row = unpack(raw_row)
+
+    for key in final_unpacked_row.keys():
+        assert final_unpacked_row[key] == unpacked_row[key]
 
 def test_unpack_list(raw_rows, unpacked_rows):
     final = []

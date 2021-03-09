@@ -22,6 +22,7 @@ def proccessed_comments_1():
             'up_vote': None,
             'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
+            'video_thumbnail': 'sample_url',
             'youtube_fan_id': 29614,
             'badge': 'topFan',
         },
@@ -44,6 +45,7 @@ def proccessed_comments_1():
             'up_vote': None,
             'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
+            'video_thumbnail': 'sample_url',
             'youtube_fan_id': 16391,
             'badge': 'newFan'
         }
@@ -62,7 +64,8 @@ def formated_comments_1():
         'platformAvatar': 'https://yt3.ggpht.com/a/AATXAJywb5VRtA-yswjD1_gcf6stbIX1xePF-YcraLIYvA=s48-c-k-c0xffffffff-no-rj-mo',
         'textDisplay': "I'm kinda early",
         'up_vote': None,
-        'videoTitle': 'Why Monki Flip Is Idiotic GENIUS'},
+        'videoTitle': 'Why Monki Flip Is Idiotic GENIUS',
+        'video_thumbnail': 'sample_url'},
         {'archive': False,
         'authorDisplayName': 'Smudgy',
         'badge': 'newFan',
@@ -74,7 +77,8 @@ def formated_comments_1():
         'textDisplay': 'Why do I keep seeing memes about FNAF 6 ending/connection '
                         'terminated',
         'up_vote': None,
-        'videoTitle': 'Why Monki Flip Is Idiotic GENIUS'}
+        'videoTitle': 'Why Monki Flip Is Idiotic GENIUS',
+        'video_thumbnail': 'sample_url'}
         ]
 
 
@@ -118,7 +122,8 @@ def formated_comments_1_with_reply():
         'platformAvatar': 'https://yt3.ggpht.com/a/AATXAJywb5VRtA-yswjD1_gcf6stbIX1xePF-YcraLIYvA=s48-c-k-c0xffffffff-no-rj-mo',
         'textDisplay': "I'm kinda early",
         'up_vote': None,
-        'videoTitle': 'Why Monki Flip Is Idiotic GENIUS'},
+        'videoTitle': 'Why Monki Flip Is Idiotic GENIUS',
+        'video_thumbnail': 'sample_url'},
         {'archive': False,
         'authorDisplayName': 'Smudgy',
         'badge': 'newFan',
@@ -131,6 +136,7 @@ def formated_comments_1_with_reply():
                         'terminated',
         'up_vote': None,
         'videoTitle': 'Why Monki Flip Is Idiotic GENIUS',
+        'video_thumbnail': 'sample_url',
         'replies': [
                 {'archive': False,
                 'authorDisplayName': 'L',

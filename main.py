@@ -26,8 +26,8 @@ def main(request):
     if requestArgs.get('okta_id'):
         okta_id = requestArgs.get('okta_id')
     else:
-        # if config.ENV == 'Local':
-        #       return {'error': 'must include an okta id'}
+        if config.ENV == 'Local':
+              return {'error': 'must include an okta id'}
         return (jsonify({'error': 'must include an okta id'}), 400)
 
     page = int(requestArgs.get('page', 0))
@@ -73,8 +73,8 @@ def main(request):
         archive = requestArgs.get('archive') == 'true'
         final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
         
-    # if config.ENV == 'Local':
-    #     return final_list
+    if config.ENV == 'Local':
+        return final_list
 
     ## Set CORS headers for the main request
     headers = {
