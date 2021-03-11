@@ -168,8 +168,7 @@ def full_query(okta_id, video_string, limit=5000):
                 fan_aggregations.sec_comment,
                 youtube_fans.account_title,
                 youtube_fans.thumbnail_url,
-                youtube_fans.note,
-                engagement_analytics.engagement_class_id
+                youtube_fans.note
             FROM
                 top_comments_with_replies
             LEFT JOIN
@@ -219,16 +218,5 @@ def full_query(okta_id, video_string, limit=5000):
             )
             youtube_fans
             ON top_comments_with_replies.youtube_fan_id = youtube_fans.id
-
-            LEFT JOIN
-            (
-                SELECT
-                    engagement_class_id,
-                    youtube_comment_id
-                FROM
-                    engagement_analytics
-            )
-            engagement_analytics
-            ON top_comments_with_replies.comment_id = engagement_analytics.youtube_comment_id
         '''
     return query

@@ -102,11 +102,5 @@ sql_columns = [
         'type':str, 
         'required': False,
         'root_required': False
-    },
-    {
-        'name': 'engagement_class_id', 
-        'type':int, 
-        'required': False,
-        'root_required': False
     }
 ]
