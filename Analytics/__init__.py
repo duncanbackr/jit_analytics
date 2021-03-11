@@ -19,10 +19,10 @@ def add_score(all_rows, cut_off_data, time_now):
     maxs = {}
     mins = {}
 
-    for name, i in [('date_posted', 5), ('total_comments', 10), ('total_replies', 11), ('total_responses', 12), ('sec_date_posted', 13)]:
+    for name, i in [('date_posted', 5), ('total_comments', 11), ('total_replies', 12), ('total_responses', 13), ('sec_date_posted', 14)]:
          maxs[name] = max([row[i] for row in all_rows if row[i] is not None])
 
-    for name, i in [('date_posted', 5), ('total_comments', 10), ('total_replies', 11), ('total_responses', 12), ('sec_date_posted', 13)]:
+    for name, i in [('date_posted', 5), ('total_comments', 11), ('total_replies', 12), ('total_responses', 13), ('sec_date_posted', 14)]:
          mins[name] = min([row[i] for row in all_rows if row[i] is not None])
 
     delay_max = {

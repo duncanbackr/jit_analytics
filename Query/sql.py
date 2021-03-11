@@ -13,7 +13,8 @@ def full_query(okta_id, video_string, limit=5000):
                 up_vote,
                 down_vote,
                 video_title,
-                video_id
+                video_id,
+                video_thumbnail
                 )
             AS (
                 SELECT 
@@ -27,12 +28,14 @@ def full_query(okta_id, video_string, limit=5000):
                     comments.up_vote as up_vote,
                     comments.down_vote as down_vote,
                     video.video_title as video_title,
-                    video.video_id as video_id
+                    video.video_id as video_id,
+                    video.thumbnail_url as video_thumbnail
                 FROM
                     (   
                         SELECT 
                             id as video_id,
-                            video_title
+                            video_title,
+                            thumbnail_url
                         FROM
                             (
                                 SELECT
@@ -65,7 +68,8 @@ def full_query(okta_id, video_string, limit=5000):
                 up_vote,
                 down_vote,
                 video_title,
-                video_id
+                video_id,
+                video_thumbnail
                 )
             AS 
             (    
@@ -118,7 +122,8 @@ def full_query(okta_id, video_string, limit=5000):
                 up_vote,
                 down_vote,
                 video_title,
-                video_id
+                video_id,
+                video_thumbnail
                 )
             AS (
                 SELECT
@@ -137,7 +142,8 @@ def full_query(okta_id, video_string, limit=5000):
                     up_vote,
                     down_vote,
                     video_title,
-                    video_id
+                    video_id,
+                    video_thumbnail
                 FROM
                 (
                     SELECT
@@ -162,6 +168,7 @@ def full_query(okta_id, video_string, limit=5000):
                 top_comments_with_replies.down_vote,
                 top_comments_with_replies.video_title,
                 top_comments_with_replies.video_id,
+                top_comments_with_replies.video_thumbnail,
                 fan_aggregations.total_comments,
                 fan_aggregations.total_replies,
                 fan_aggregations.responses,
