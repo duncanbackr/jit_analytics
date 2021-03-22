@@ -14,7 +14,8 @@ def full_query(okta_id, video_string, fan_string, limit=5000):
                 down_vote,
                 video_title,
                 video_id,
-                video_thumbnail
+                video_thumbnail,
+                classification
                 )
             AS (
                 SELECT 
@@ -29,7 +30,9 @@ def full_query(okta_id, video_string, fan_string, limit=5000):
                     comments.down_vote as down_vote,
                     video.video_title as video_title,
                     video.video_id as video_id,
-                    video.thumbnail_url as video_thumbnail
+                    video.thumbnail_url as video_thumbnail,
+                    comments.classification as classification
+
                 FROM
                     (   
                         SELECT 
@@ -69,7 +72,8 @@ def full_query(okta_id, video_string, fan_string, limit=5000):
                 down_vote,
                 video_title,
                 video_id,
-                video_thumbnail
+                video_thumbnail,
+                classification
                 )
             AS 
             (    
@@ -123,7 +127,8 @@ def full_query(okta_id, video_string, fan_string, limit=5000):
                 down_vote,
                 video_title,
                 video_id,
-                video_thumbnail
+                video_thumbnail,
+                classification
                 )
             AS (
                 SELECT
@@ -143,7 +148,8 @@ def full_query(okta_id, video_string, fan_string, limit=5000):
                     down_vote,
                     video_title,
                     video_id,
-                    video_thumbnail
+                    video_thumbnail,
+                    classification
                 FROM
                 (
                     SELECT
@@ -175,6 +181,7 @@ def full_query(okta_id, video_string, fan_string, limit=5000):
                 fan_aggregations.sec_comment,
                 youtube_fans.account_title,
                 youtube_fans.thumbnail_url,
+                top_comments_with_replies.classification,
                 youtube_fans.note
             FROM
                 top_comments_with_replies
