@@ -104,6 +104,12 @@ sql_columns = [
         'root_required': False
     },
     {
+        'name':'classification', 
+        'type':str, 
+        'required': False,
+        'root_required': False
+    },
+    {
         'name': 'note', 
         'type':str, 
         'required': False,

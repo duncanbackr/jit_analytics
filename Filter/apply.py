@@ -11,8 +11,6 @@ def from_list(comments, videoId=None, badge=None, archived=None, comment_class=N
 
     filter_list = []
 
-    comment_class_dict = {1:'Positive', 2: 'Negative', 3: 'Question', 4: 'Suggestion', 5: 'Other'}
-
     for comment in comments:
 
         if badge:
@@ -29,8 +27,8 @@ def from_list(comments, videoId=None, badge=None, archived=None, comment_class=N
         #         continue
 
         if comment_class:
-            if (comment['engagement_class_id'] is None) or \
-                        (comment_class_dict[comment['engagement_class_id']] != comment_class):
+            if (comment['classification'] is None) or \
+                        (comment['classification'].lower() != comment_class.lower()):
                 continue
 
         filter_list.append(comment)

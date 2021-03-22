@@ -22,6 +22,7 @@ def test_unpack(raw_row):
         'video_title': 'Blank video number 1',
         'video_thumbnail': 'sample_video_url',
         'note': None,
+        'classification': 'other',
         'youtube_fan_id': 5491,
     }
     unpacked_row = unpack(raw_row)
