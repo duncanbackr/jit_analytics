@@ -54,7 +54,6 @@ def add_score(all_rows, cut_off_data, time_now):
                             if delay_min[i] and delays_unscaled[i] else None
                             for i in range(3)]
 
-
             comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['badge'], delays_scaled, maxs, mins)
 
