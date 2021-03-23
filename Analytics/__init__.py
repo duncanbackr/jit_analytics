@@ -51,7 +51,7 @@ def add_score(all_rows, cut_off_data, time_now):
             comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, delays_unscaled)
 
             delays_scaled = [min_max_scaler(delays_unscaled[i], delay_min[i], delay_max[i])
-                            if delay_min[i] and delays_unscaled[i] else None
+                            if delay_min[i] and delays_unscaled[i] else 0
                             for i in range(3)]
 
             comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
