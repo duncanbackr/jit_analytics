@@ -21,3 +21,4 @@ def test_sort_growth(sort_growth):
 def test_filter_badge(filter_badge):
     assert [{'growth':2, 'badge':'topFan'}, {'growth':5, 'badge':'topFan'}] == filter_badge
 
+

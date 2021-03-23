@@ -7,6 +7,7 @@ from Analytics.badgescore import  add_badge_score
 from Analytics.preparedict import unpack
 import Analytics
 import Sort
+from Tests.test_scores.mock_data import raw_sql_data
 from Filter import from_list
 from datetime import datetime
 from Tests.test_scores.mock_data import raw_sql_data
@@ -45,3 +46,5 @@ def sort_growth():
 def filter_badge():
     proccessed_comments = [{'growth':2, 'badge':'topFan'}, {'growth':6, 'badge':'newFan'}, {'growth':5, 'badge':'topFan'}]
     return from_list(proccessed_comments, badge = 'topFan')
+
+
