@@ -104,14 +104,14 @@ sql_columns = [
         'root_required': False
     },
     {
-        'name': 'note', 
+        'name':'classification', 
         'type':str, 
         'required': False,
         'root_required': False
     },
     {
-        'name': 'engagement_class_id', 
-        'type':int, 
+        'name': 'note', 
+        'type':str, 
         'required': False,
         'root_required': False
     }

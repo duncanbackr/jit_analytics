@@ -36,12 +36,18 @@ def main(request):
     
     """ Create video filter string """
     if requestArgs.get('videoId'):
-        video_string = Query.parse.create_string(requestArgs.get('videoId'))
+        video_string = Query.parse.create_video_string(requestArgs.get('videoId'))
     else:
         video_string = ""
+
+    """ Create fan filter string """
+    if requestArgs.get('fan_id'):
+        fan_string = Query.parse.create_fan_string(requestArgs.get('fan_id'))
+    else:
+        fan_string = ""
     
     """ Get data from db and backrest """
-    raw_data = Query.latest_comments(okta_id, video_string, limit)
+    raw_data = Query.latest_comments(okta_id, video_string, fan_string, limit)
     backrest_response = Query.batch_data(okta_id)
     if backrest_response.get('error'):
         return (jsonify(backrest_response), 500)
@@ -73,8 +79,8 @@ def main(request):
         archive = requestArgs.get('archive') == 'true'
         final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
         
-    if config.ENV == 'Local':
-        return final_list
+    # if config.ENV == 'Local':
+    #     return final_list
 
     ## Set CORS headers for the main request
     headers = {

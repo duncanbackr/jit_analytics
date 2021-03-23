@@ -3,7 +3,7 @@ import config
 from Query.sql import full_query
 
 
-def latest_comments(okta_id, video_string, limit=5000):
+def latest_comments(okta_id, video_string="", fan_string="", limit=5000):
 
     conn = psycopg2.connect(f"dbname= {config.DB_NAME} \
                             user={config.DB_USER} \
@@ -11,7 +11,7 @@ def latest_comments(okta_id, video_string, limit=5000):
                             password={config.DB_PASSWORD}")
     cur = conn.cursor()
 
-    query_string = full_query(okta_id, video_string, limit)
+    query_string = full_query(okta_id, video_string, fan_string, limit)
 
     cur.execute(query_string)
 

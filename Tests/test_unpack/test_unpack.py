@@ -10,7 +10,6 @@ def test_unpack(raw_row):
         'comment_id': 10270,
         'content': "Hello it's 10:44am",
         'down_vote': None,
-        'engagement_class_id': 5,
         'parent_youtube_comment_id': None,
         'responses': 5,
         'sec_comment': datetime.datetime(2020, 9, 18, 21, 22, 48),
@@ -23,6 +22,7 @@ def test_unpack(raw_row):
         'video_title': 'Blank video number 1',
         'video_thumbnail': 'sample_video_url',
         'note': None,
+        'classification': 'other',
         'youtube_fan_id': 5491,
     }
     unpacked_row = unpack(raw_row)

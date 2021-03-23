@@ -10,16 +10,19 @@ from Filter import from_list
 import datetime
 
 @pytest.fixture(scope='function')
+
 def raw_row():
-    row = (10270, None, 5491, "Hello it's 10:44am", False, datetime.datetime(2020, 9, 21, 14, 44, 50), None, None, 'Blank video number 1', 211, 'sample_video_url', 6, 0, 5, datetime.datetime(2020, 9, 18, 21, 22, 48), 'H D', 'https://yt3.ggpht.com/a/AATXAJzgJr8LM_13j_9prEtQ2YsJoBF-nBSUtoP9Jw=s48-c-k-c0xffffffff-no-rj-mo', None, 5)
+    row = (10270, None, 5491, "Hello it's 10:44am", False, datetime.datetime(2020, 9, 21, 14, 44, 50), None, None, 'Blank video number 1', 211, 'sample_video_url', 6, 0, 5, datetime.datetime(2020, 9, 18, 21, 22, 48), 'H D', 'https://yt3.ggpht.com/a/AATXAJzgJr8LM_13j_9prEtQ2YsJoBF-nBSUtoP9Jw=s48-c-k-c0xffffffff-no-rj-mo', 'other', None)
     return row
+
 
 @pytest.fixture(scope='function')
 def raw_rows():
     return [
-        (45995, None, 29614, "I'm kinda early", False, datetime.datetime(2020, 9, 1, 12, 3, 10), None, None, 'Why Monki Flip Is Idiotic GENIUS', 447, 'video_thumnail_url', 1, 0, 0, None, 'Fab_yo', 'https://yt3.ggpht.com/a/AATXAJywb5VRtA-yswjD1_gcf6stbIX1xePF-YcraLIYvA=s48-c-k-c0xffffffff-no-rj-mo', None, 5), 
-        (45931, None, 16391, 'Why do I keep seeing memes about FNAF 6 ending/connection terminated', False, datetime.datetime(2020, 9, 1, 12, 7, 45), None, None, 'Why Monki Flip Is Idiotic GENIUS', 447, 'video_thumnail_url', 7, 1, 0, datetime.datetime(2020, 11, 23, 12, 12, 24), 'Smudgy', 'https://yt3.ggpht.com/a/AATXAJxEPFIiOJHh55U6vvDvyLtm5XZQMd0ALUz9m_hHu3A=s48-c-k-c0xffffffff-no-rj-mo', None, 5), 
-        (46120, 45948, 29664, 'oooo ooooh aAHHH AAH OOOOH\n  -monke', False, datetime.datetime(2020, 9, 1, 12, 54, 59), None, None, 'Why Monki Flip Is Idiotic GENIUS', 447, 'video_thumnail_url', None, None, None, None, 'L', 'https://yt3.ggpht.com/a/AATXAJwM17GuMYlBpjlnXx8Z1MAKp09ZxiiMOpb05wXqXGk=s48-c-k-c0xffffffff-no-rj-mo', 'I am a note', 5)
+
+        (45995, None, 29614, "I'm kinda early", False, datetime.datetime(2020, 9, 1, 12, 3, 10), None, None, 'Why Monki Flip Is Idiotic GENIUS', 447, 'video_thumnail_url', 1, 0, 0, None, 'Fab_yo', 'https://yt3.ggpht.com/a/AATXAJywb5VRtA-yswjD1_gcf6stbIX1xePF-YcraLIYvA=s48-c-k-c0xffffffff-no-rj-mo', '', None), 
+        (45931, None, 16391, 'Why do I keep seeing memes about FNAF 6 ending/connection terminated', False, datetime.datetime(2020, 9, 1, 12, 7, 45), None, None, 'Why Monki Flip Is Idiotic GENIUS', 447, 'video_thumnail_url', 7, 1, 0, datetime.datetime(2020, 11, 23, 12, 12, 24), 'Smudgy', 'https://yt3.ggpht.com/a/AATXAJxEPFIiOJHh55U6vvDvyLtm5XZQMd0ALUz9m_hHu3A=s48-c-k-c0xffffffff-no-rj-mo', 'positive', None), 
+        (46120, 45948, 29664, 'oooo ooooh aAHHH AAH OOOOH\n  -monke', False, datetime.datetime(2020, 9, 1, 12, 54, 59), None, None, 'Why Monki Flip Is Idiotic GENIUS', 447, 'video_thumnail_url', None, None, None, None, 'L', 'https://yt3.ggpht.com/a/AATXAJwM17GuMYlBpjlnXx8Z1MAKp09ZxiiMOpb05wXqXGk=s48-c-k-c0xffffffff-no-rj-mo', 'question', 'I am a note')
         ]
 
 @pytest.fixture(scope='function')
@@ -32,7 +35,6 @@ def unpacked_rows():
             'comment_id': 45995,
             'content': "I'm kinda early",
             'down_vote': None,
-            'engagement_class_id': 5,
             'parent_youtube_comment_id': None,
             'responses': 0,
             'sec_comment': None,
@@ -45,6 +47,7 @@ def unpacked_rows():
             'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
             'video_thumbnail': 'video_thumnail_url',
+            'classification': '',
             'youtube_fan_id': 29614,
         },
         {
@@ -54,7 +57,6 @@ def unpacked_rows():
             'content': 'Why do I keep seeing memes about FNAF 6 ending/connection '
                     'terminated',
             'down_vote': None,
-            'engagement_class_id': 5,
             'parent_youtube_comment_id': None,
             'responses': 0,
             'sec_comment': datetime.datetime(2020, 11, 23, 12, 12, 24),
@@ -67,6 +69,7 @@ def unpacked_rows():
             'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
             'video_thumbnail': 'video_thumnail_url',
+            'classification': 'positive',
             'youtube_fan_id': 16391
         },
         {
@@ -76,7 +79,6 @@ def unpacked_rows():
             'content': 'oooo ooooh aAHHH AAH OOOOH\n'
                     '  -monke',
             'down_vote': None,
-            'engagement_class_id': 5,
             'parent_youtube_comment_id': 45948,
             'responses': None,
             'sec_comment': None,
@@ -89,6 +91,7 @@ def unpacked_rows():
             'videoId': 447,
             'video_title': 'Why Monki Flip Is Idiotic GENIUS',
             'video_thumbnail': 'video_thumnail_url',
+            'classification': 'question',
             'youtube_fan_id': 29664,
         }
 
