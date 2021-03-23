@@ -18,9 +18,9 @@ def create_delay_scores_scaled(last_comment, sec_comment, time_now, delay_max, d
         return [delay1_scaled, delay2_scaled, delay3_scaled]
 
     else:
-        return [delay1_scaled,0, 0]
+        return [delay1_scaled, 0, 0]
 
-def create_delay_scores_unscaled(last_comment, sec_comment, time_now):
+def create_delay_scores(last_comment, sec_comment, time_now):
     '''subtracts dates in dataframe from todays date and converts 
     to # of days with logic for if the value is a nan'''
     delay1 = (time_now - last_comment).days + ((time_now - last_comment).seconds)/(3600*24)

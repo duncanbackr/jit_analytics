@@ -1,12 +1,14 @@
 from datetime import datetime
 from Analytics.addbadge import add_badge
 from Analytics.badgescore import  add_badge_score
-from Analytics.delayscores import create_delay_scores_scaled, create_delay_scores_unscaled
+from Analytics.delayscores import create_delay_scores
 from Analytics.growthscore import add_growth
 from Analytics.balancedscore import add_balanced
 from Analytics.preparedict import unpack
 from Analytics.retentionscore import add_retention
 from Analytics.scaledelay import delay_diff
+from Analytics.scaler import min_max_scaler
+
 #import time
 
 def datetime_now():
@@ -16,31 +18,26 @@ def add_score(all_rows, cut_off_data, time_now):
     top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
     #top_fan_cutoff = 2
     #####min, max values for scaling####
+
+    all_comments = [unpack(row) for row in all_rows]
+
     maxs = {}
     mins = {}
 
-    for name, i in [('date_posted', 5), ('total_comments', 11), ('total_replies', 12), ('total_responses', 13), ('sec_date_posted', 14)]:
-        maxs[name] = max([row[i] for row in all_rows if row[i] is not None])
+    for col in ['timestamp', 'total_comments', 'total_replies', 'responses', 'sec_comment']:
+        try:
+            maxs[col] = max([comment[col] for comment in all_comments if comment[col] is not None])
+            mins[col] = min([comment[col] for comment in all_comments if comment[col] is not None])
+        except (ValueError):
+            maxs[col] = None
+            mins[col] = None
 
-    for name, i in [('date_posted', 5), ('total_comments', 11), ('total_replies', 12), ('total_responses', 13), ('sec_date_posted', 14)]:
-        mins[name] = min([row[i] for row in all_rows if row[i] is not None])
-
-    delay_max = {
-                "delay1": delay_diff(time_now, mins['date_posted']),
-                "delay2": delay_diff(maxs['date_posted'], mins['sec_date_posted']),
-                "delay3": delay_diff(time_now, mins['sec_date_posted'])
-                }
-
-    delay_min = {
-                "delay1": delay_diff(time_now, maxs['date_posted']),
-                "delay2": 0,
-                "delay3": delay_diff(time_now, maxs['sec_date_posted'])
-                }
+    delay_max = create_delay_scores(maxs['timestamp'], maxs['sec_comment'], time_now)
+    delay_min = create_delay_scores(mins['timestamp'], mins['sec_comment'], time_now)
 
     replies = {}
     proccessed_comments = []
-    for row in all_rows:
-        comment = unpack(row)
+    for comment in all_comments:
 
         if comment is None:
             continue
@@ -49,10 +46,14 @@ def add_score(all_rows, cut_off_data, time_now):
 
         if parent_comment is None:
 
-            delays_unscaled = create_delay_scores_unscaled(comment['timestamp'], comment['sec_comment'], time_now)
-            delays_scaled = create_delay_scores_scaled(comment['timestamp'], comment['sec_comment'], time_now, delay_max, delay_min)
+            delays_unscaled = create_delay_scores(comment['timestamp'], comment['sec_comment'], time_now)
 
             comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, delays_unscaled)
+
+            delays_scaled = [min_max_scaler(delays_unscaled[i], delay_min[i], delay_max[i])
+                            if delay_min[i] and delays_unscaled[i] else None
+                            for i in range(3)]
+
 
             comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
                                                     comment['responses'], comment['badge'], delays_scaled, maxs, mins)

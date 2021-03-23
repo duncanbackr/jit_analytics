@@ -1,5 +1,5 @@
 import pytest
-from Analytics.delayscores import create_delay_scores_unscaled, create_delay_scores_scaled
+from Analytics.delayscores import create_delay_scores
 from Analytics.addbadge import add_badge
 from Analytics.growthscore import add_growth
 from Analytics.retentionscore import add_retention
@@ -15,12 +15,12 @@ time_now = datetime(2021, 2, 18, 18, 32, 34)
 
 @pytest.fixture(scope='function')
 def top_fan():
-    delays = create_delay_scores_unscaled(datetime(2020, 9, 12, 18, 32, 34), datetime(2020, 9, 20, 18, 32, 34), time_now)
+    delays = create_delay_scores(datetime(2020, 9, 12, 18, 32, 34), datetime(2020, 9, 20, 18, 32, 34), time_now)
     return add_badge(3, 2, delays)
 
 @pytest.fixture(scope='function')
 def trend_fan():
-    delays = create_delay_scores_unscaled(datetime(2021, 1, 31, 18, 32, 34), datetime(2021, 2, 1, 18, 32, 34), time_now)
+    delays = create_delay_scores(datetime(2021, 1, 31, 18, 32, 34), datetime(2021, 2, 1, 18, 32, 34), time_now)
     return add_badge(2, 2, delays)
 
 @pytest.fixture(scope='function')

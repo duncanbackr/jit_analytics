@@ -1,8 +1,7 @@
 from datetime import datetime
-from Analytics.delayscores import create_delay_scores_scaled
 from Analytics.scaler import min_max_scaler
 
-def add_badge_score(total_comments, top_fan_cutoff, total_responses, badge, delays, maxs, mins):
+def add_badge_score(total_comments, top_fan_cutoff, responses, badge, delays, maxs, mins):
     '''takes in parameters and outputs badge score'''
     
     delay1_scaled, delay2_scaled, delay3_scaled = delays
