@@ -3,7 +3,7 @@ import Analytics, Filter, Formating, Query, Sort
 from flask import jsonify
 import math
 import config
-#import time
+import time
 from flask import Flask, request
 
 def main(request):
@@ -47,8 +47,13 @@ def main(request):
         fan_string = ""
     
     """ Get data from db and backrest """
+    start = time.time()
     raw_data = Query.latest_comments(okta_id, video_string, fan_string, limit)
+    sql_time = time.time() - start
+
+    start = time.time()
     backrest_response = Query.batch_data(okta_id)
+    batch_time = time.time() - start
     if backrest_response.get('error'):
         return (jsonify(backrest_response), 500)
     else:
@@ -56,7 +61,11 @@ def main(request):
         creator = backrest_response['creator']
 
     """ Add analytics calculations """
+    start = time.time()
     scored_comments, replies = Analytics.add_score(raw_data, cut_off_data, Analytics.datetime_now())
+    analytics_time = time.time() - start
+
+    start = time.time()
 
     if requestArgs.get('resource') == 'fans':
         filtered_comments = Filter.from_list(
@@ -78,6 +87,15 @@ def main(request):
               param=requestArgs.get('order', 'balanced'))
         archive = requestArgs.get('archive') == 'true'
         final_list, total_length = Formating.comments(sorted_comments, replies, creator, archive, page, perPage)
+
+    filter_sort_time = time.time() - start
+
+    timers = {
+        'sql time': sql_time,
+        'batch time': batch_time,
+        'analytics time': analytics_time,
+        'filtering and sorting time': filter_sort_time
+    }
         
     # if config.ENV == 'Local':
     #     return final_list
@@ -90,6 +108,7 @@ def main(request):
     # final_list.insert(0, {'batch_call:': end-start, 'total_time': total_end-total_start})
 
     return (jsonify({'success': True,
+                    'time': timers,
                     'data': final_list,
                     'page': page,
                     'totalPages': math.ceil(total_length/perPage)
