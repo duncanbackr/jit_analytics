@@ -8,7 +8,6 @@ def add_retention(total_comments, top_fan_cutoff, responses, total_replies, badg
 
     if delay3_scaled:
         return 2*min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
-           # + delay3_scaled \
             - 2*delay1_scaled \
             - min_max_scaler(responses, mins['responses'], maxs['responses'])
 
