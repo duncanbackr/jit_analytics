@@ -6,15 +6,14 @@ def add_retention(total_comments, top_fan_cutoff, responses, total_replies, badg
 
     delay1_scaled, delay2_scaled, delay3_scaled = delays_scaled
 
-    try:
-        
+    if delay3_scaled:
         return 2*min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
             + delay3_scaled \
-            - delay1_scaled \
-            - min_max_scaler(total_comments, mins['responses'], maxs['responses'])
-    except: 
+            - 2*delay1_scaled \
+            - min_max_scaler(responses, mins['responses'], maxs['responses'])
 
+    else:
         return 2*min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
                 - delay1_scaled \
-                - min_max_scaler(total_comments, mins['responses'], maxs['responses'])
+                - min_max_scaler(responses, mins['responses'], maxs['responses'])
 

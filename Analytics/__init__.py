@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from Analytics.addbadge import add_badge
 from Analytics.badgescore import  add_badge_score
 from Analytics.delayscores import create_delay_scores
@@ -12,7 +12,7 @@ from Analytics.scaler import min_max_scaler
 #import time
 
 def datetime_now():
-    return datetime.utcnow()
+    return datetime.now(timezone.utc)
 
 def add_score(all_rows, cut_off_data, time_now):
     top_fan_cutoff = cut_off_data[0] + 2*cut_off_data[1]
@@ -51,7 +51,7 @@ def add_score(all_rows, cut_off_data, time_now):
             comment['badge'] = add_badge(comment['total_comments'], top_fan_cutoff, delays_unscaled)
 
             delays_scaled = [min_max_scaler(delays_unscaled[i], delay_min[i], delay_max[i])
-                            if delay_min[i] and delays_unscaled[i] else 0
+                            if delay_min[i] and delays_unscaled[i] else None
                             for i in range(3)]
 
             comment['growth'] = add_growth(comment['total_comments'], top_fan_cutoff, 
