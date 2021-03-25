@@ -7,10 +7,10 @@ def add_retention(total_comments, top_fan_cutoff, responses, total_replies, badg
     delay1_scaled, delay2_scaled, delay3_scaled = delays_scaled
 
     if delay3_scaled:
-        return min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
+        return 1.2*min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
             - min_max_scaler(responses, mins['responses'], maxs['responses'])
 
     else:
-        return min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
+        return 1.2*min_max_scaler(total_comments, mins['total_comments'], maxs['total_comments']) \
                 - min_max_scaler(responses, mins['responses'], maxs['responses'])
 
