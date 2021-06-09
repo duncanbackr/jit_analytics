@@ -1,5 +1,5 @@
 # JIT_analytics
-Just-in-time analytics
+Just-in-time analytics which delivers data to the frontend
 
 ## Return formats
 ```js
@@ -45,6 +45,3 @@ fans = [{
     badge: str **Calculated**,
 }]
 ```
-
-connect to db
-./cloud_sql_proxy -instances=backr-dev:us-central1:data-main=tcp:5432
